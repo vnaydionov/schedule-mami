@@ -1,0 +1,42 @@
+
+ABOUT
+
+Schedule HTTP daemon is part of a project aimed to deliver teacher's schedule
+to his/her mobile phone running Android, allowing for automatic updates.
+It also demonstrates some of YB.ORM use cases.
+The daemon was developed at Moscow State Open University (MSOU) by:
+  Viacheslav Fedorov -- funny-story at yandex dot ru
+  Andrey Skobenkov -- andrey dot skobenkov at gmail dot com
+You need YB.ORM installed in order to build Schedule HTTP daemon.
+
+The project consists of a single executable, which runs a minimal
+HTTP server at port 19090.  The server processes XML-over-HTTP POST queries
+of several types.  See the XML protocol description for details.
+
+
+BUILD
+
+On Windows you should use CMake build system. It is assumed
+that YB.ORM resides in c:\yborm folder, then unpack this project here:
+c:\yborm\src\examples\schedule
+Then mkdir c:\yborm\build-schedule, copy proper build-*.bat and chdir there.
+Use build script c:\yborm\build-schedule\build-*.bat.
+
+To build Schedule under Unix, please use autogen.sh/configure scripts.
+For instance, you can build and install YB.ORM locally as follows:
+sh autogen.sh
+./configure --with-test-dbtype=MYSQL --with-test-db=test1_db \
+  --with-test-user=test1 --with-test-passwd=test1_pwd --disable-static \
+  --prefix=/home/vaclav/inst1
+make check && make install
+
+Then you can build Schedule itself, like this:
+sh autogen.sh
+./configure --with-test-dbtype=MYSQL --with-test-db=schedule_db \
+  --with-test-user=schedule --with-test-passwd=schedule_pwd --disable-static \
+  --prefix=/home/vaclav/inst1 \
+  --with-yborm-includes=/home/vaclav/inst1/include/yb \
+  --with-yborm-libs=/home/vaclav/inst1/lib \
+  --with-yborm-bin=/home/vaclav/inst1/bin
+make
+

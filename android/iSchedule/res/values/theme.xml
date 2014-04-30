@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ScheduleTheme" parent="@android:style/Theme.Black">
+        
+    </style>
+
+    <style name="CustomEditText" parent="@android:style/Widget.EditText">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/pink_edit_text</item>
+    </style>
+
+    <style name="PinkButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/pink_button</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+</resources>

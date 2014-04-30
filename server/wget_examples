@@ -1,0 +1,12 @@
+wget -q -O- --header "Content-type: text/xml" --post-data "<request version='0.1' type='auth'><login>medved</login><pass>preved</pass></request>" 127.0.0.1:19090/main
+
+wget -q -O- --header "Content-type: text/xml" --post-data "<request version='0.1' type='logout'><token>-3701098321873284284</token></request>" 127.0.0.1:19090/main
+
+wget -q -O- --header "Content-type: text/xml" --post-data "<request version='0.1' type='update'><token>5796283652768704149</token></request>" 127.0.0.1:19090/main
+
+wget -q -O- --header "Content-type: text/xml" --post-data "<request version='0.1' type='download'><token>5796283652768704149</token><start_dt>2011-04-21T00:00:00</start_dt></request>" 127.0.0.1:19090/main
+
+wget -q -O- --header "Content-type: text/xml" --post-data "<request version='0.1' type='check'><token>-5972872300677619708</token><id checked='agree'>0</id><id checked='disagree'>1</id></request>" 127.0.0.1:19090/main
+
+wget -q -O- --header "Content-type: text/xml" --post-data "<request version='0.1' type='last_update_info'><token>-5972872300677619708</token></request>" 127.0.0.1:19090/main
+

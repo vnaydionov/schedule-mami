@@ -1,0 +1,38 @@
+#!/bin/bash
+
+SCHEDULE_HOME=/home/schedule/schedule_srv/srv_inst
+
+COMMAND="$1"
+shift
+
+case $COMMAND in
+start)
+    echo -n "Starting MSOU Schedule daemon.."
+    cd $SCHEDULE_HOME/bin
+    ./schedule &> /dev/null &
+    CHILD=$!
+    sleep 1
+    kill -0 $CHILD &> /dev/null
+    [ "$?" = "0" ] && echo " Success" || echo " Failure"
+    ;;
+stop)
+    echo -n "Stopping MSOU Schedule daemon.."
+    PID=`ps aux | grep './schedule$'  | grep -v grep | awk '{print $2}'`
+    if [ "$PID" = "" ] ; then 
+        echo " Success"
+    else
+        kill -TERM $PID &> /dev/null
+        sleep 1
+        kill -0 $PID &> /dev/null
+        [ "$?" = "0" ] && echo " Failure" || echo " Success"
+    fi
+    ;;
+restart)
+    $0 stop
+    $0 start
+    ;;
+*)
+    echo "Usage $0 start|stop|restart"
+    exit 1
+esac
+

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:longClickable="true" 
+    android:orientation="vertical"
+	android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Авторизация"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerHorizontal="true" android:layout_alignParentTop="true" android:layout_marginTop="11dp"
+        android:textStyle="normal" android:visibility="visible"/>
+
+    <EditText
+        style="@style/CustomEditText"
+        android:id="@+id/loginEText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/login"
+        android:text="" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        style="@style/CustomEditText"
+        android:id="@+id/passEText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/loginEText"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:text="" />
+
+    <Button
+        style="@style/PinkButton"
+        android:id="@+id/logInButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_below="@+id/passEText"
+        android:layout_marginTop="32dp"
+        android:text="@string/enter" android:textSize="20dp"/>
+
+</RelativeLayout>

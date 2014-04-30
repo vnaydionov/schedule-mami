@@ -1,0 +1,320 @@
+-- MySQL dump 10.13  Distrib 5.5.28, for debian-linux-gnu (i686)
+--
+-- Host: localhost    Database: schedule_db
+-- ------------------------------------------------------
+-- Server version	5.5.28-0ubuntu0.12.04.2
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `T_ACTIVITY`
+--
+
+DROP TABLE IF EXISTS `T_ACTIVITY`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_ACTIVITY` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(100) NOT NULL,
+  `SHORT_NAME` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_ACTIVITY`
+--
+
+LOCK TABLES `T_ACTIVITY` WRITE;
+/*!40000 ALTER TABLE `T_ACTIVITY` DISABLE KEYS */;
+INSERT INTO `T_ACTIVITY` VALUES (1,'test_activity','t_a'),(2,'test_activity','t_a'),(3,'test_activity','t_a');
+/*!40000 ALTER TABLE `T_ACTIVITY` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_PLACE`
+--
+
+DROP TABLE IF EXISTS `T_PLACE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_PLACE` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(100) NOT NULL,
+  `SHORT_NAME` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_PLACE`
+--
+
+LOCK TABLES `T_PLACE` WRITE;
+/*!40000 ALTER TABLE `T_PLACE` DISABLE KEYS */;
+INSERT INTO `T_PLACE` VALUES (1,'test_place','t_p'),(2,'test_place','t_p'),(3,'test_place','t_p');
+/*!40000 ALTER TABLE `T_PLACE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SCHEDULE`
+--
+
+DROP TABLE IF EXISTS `T_SCHEDULE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SCHEDULE` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `UPDATE_DT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `TEACHER_ID` bigint(20) NOT NULL,
+  `RECEIVER_ID` bigint(20) NOT NULL,
+  `SUBJECT_ID` bigint(20) NOT NULL,
+  `PLACE_ID` bigint(20) NOT NULL,
+  `START_DT` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `END_DT` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `DOW` varchar(10) DEFAULT NULL,
+  `REPEAT_TYPE` varchar(10) DEFAULT NULL,
+  `START_TIME` int(11) DEFAULT NULL,
+  `END_TIME` int(11) DEFAULT NULL,
+  `SENT` int(11) NOT NULL DEFAULT '0',
+  `CHECKED` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `TEACHER_ID` (`TEACHER_ID`),
+  KEY `RECEIVER_ID` (`RECEIVER_ID`),
+  KEY `SUBJECT_ID` (`SUBJECT_ID`),
+  KEY `PLACE_ID` (`PLACE_ID`),
+  CONSTRAINT `T_SCHEDULE_ibfk_1` FOREIGN KEY (`TEACHER_ID`) REFERENCES `T_USER` (`ID`),
+  CONSTRAINT `T_SCHEDULE_ibfk_2` FOREIGN KEY (`RECEIVER_ID`) REFERENCES `T_USER` (`ID`),
+  CONSTRAINT `T_SCHEDULE_ibfk_3` FOREIGN KEY (`SUBJECT_ID`) REFERENCES `T_SUBJECT` (`ID`),
+  CONSTRAINT `T_SCHEDULE_ibfk_4` FOREIGN KEY (`PLACE_ID`) REFERENCES `T_PLACE` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SCHEDULE`
+--
+
+LOCK TABLES `T_SCHEDULE` WRITE;
+/*!40000 ALTER TABLE `T_SCHEDULE` DISABLE KEYS */;
+INSERT INTO `T_SCHEDULE` VALUES (1,'2012-07-17 18:22:37',3,3,1,1,'2012-07-17 18:22:37','2012-07-17 18:22:37','Tue','each',900,1040,0,0),(2,'2012-07-19 17:03:25',5,5,2,2,'2012-07-19 17:03:25','2012-07-19 17:03:25','Tue','each',900,1040,0,0),(3,'2012-07-24 15:09:41',7,7,3,3,'2012-07-24 15:09:41','2012-07-24 15:09:41','Tue','each',900,1040,0,0);
+/*!40000 ALTER TABLE `T_SCHEDULE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SCHEDULE_ACTIVITY`
+--
+
+DROP TABLE IF EXISTS `T_SCHEDULE_ACTIVITY`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SCHEDULE_ACTIVITY` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `SCHEDULE_ID` bigint(20) NOT NULL,
+  `ACTIVITY_ID` bigint(20) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `SCHEDULE_ID` (`SCHEDULE_ID`),
+  KEY `ACTIVITY_ID` (`ACTIVITY_ID`),
+  CONSTRAINT `T_SCHEDULE_ACTIVITY_ibfk_1` FOREIGN KEY (`SCHEDULE_ID`) REFERENCES `T_SCHEDULE` (`ID`),
+  CONSTRAINT `T_SCHEDULE_ACTIVITY_ibfk_2` FOREIGN KEY (`ACTIVITY_ID`) REFERENCES `T_ACTIVITY` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SCHEDULE_ACTIVITY`
+--
+
+LOCK TABLES `T_SCHEDULE_ACTIVITY` WRITE;
+/*!40000 ALTER TABLE `T_SCHEDULE_ACTIVITY` DISABLE KEYS */;
+INSERT INTO `T_SCHEDULE_ACTIVITY` VALUES (1,1,1),(2,2,2),(3,3,3);
+/*!40000 ALTER TABLE `T_SCHEDULE_ACTIVITY` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SCHEDULE_DATE`
+--
+
+DROP TABLE IF EXISTS `T_SCHEDULE_DATE`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SCHEDULE_DATE` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `ITEM_TYPE` varchar(10) NOT NULL,
+  `SCHEDULE_ID` bigint(20) NOT NULL,
+  `DT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `SCHEDULE_ID` (`SCHEDULE_ID`),
+  CONSTRAINT `T_SCHEDULE_DATE_ibfk_1` FOREIGN KEY (`SCHEDULE_ID`) REFERENCES `T_SCHEDULE` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SCHEDULE_DATE`
+--
+
+LOCK TABLES `T_SCHEDULE_DATE` WRITE;
+/*!40000 ALTER TABLE `T_SCHEDULE_DATE` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_SCHEDULE_DATE` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SCHEDULE_GROUP`
+--
+
+DROP TABLE IF EXISTS `T_SCHEDULE_GROUP`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SCHEDULE_GROUP` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `SCHEDULE_ID` bigint(20) NOT NULL,
+  `GROUP_ID` bigint(20) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `SCHEDULE_ID` (`SCHEDULE_ID`),
+  KEY `GROUP_ID` (`GROUP_ID`),
+  CONSTRAINT `T_SCHEDULE_GROUP_ibfk_1` FOREIGN KEY (`SCHEDULE_ID`) REFERENCES `T_SCHEDULE` (`ID`),
+  CONSTRAINT `T_SCHEDULE_GROUP_ibfk_2` FOREIGN KEY (`GROUP_ID`) REFERENCES `T_STUD_GROUP` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SCHEDULE_GROUP`
+--
+
+LOCK TABLES `T_SCHEDULE_GROUP` WRITE;
+/*!40000 ALTER TABLE `T_SCHEDULE_GROUP` DISABLE KEYS */;
+INSERT INTO `T_SCHEDULE_GROUP` VALUES (3,1,1),(4,2,1);
+/*!40000 ALTER TABLE `T_SCHEDULE_GROUP` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SESSION`
+--
+
+DROP TABLE IF EXISTS `T_SESSION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SESSION` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `USR_ID` bigint(20) NOT NULL,
+  `APP_NAME` varchar(100) NOT NULL DEFAULT 'auth',
+  `BEGIN_SESSION` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `END_SESSION` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `TOKEN` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `USR_ID` (`USR_ID`),
+  CONSTRAINT `T_SESSION_ibfk_1` FOREIGN KEY (`USR_ID`) REFERENCES `T_USER` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SESSION`
+--
+
+LOCK TABLES `T_SESSION` WRITE;
+/*!40000 ALTER TABLE `T_SESSION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `T_SESSION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_STUD_GROUP`
+--
+
+DROP TABLE IF EXISTS `T_STUD_GROUP`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_STUD_GROUP` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `SPEC_CODE` varchar(20) NOT NULL,
+  `YEAR` int(11) NOT NULL,
+  `NAME_CODE` varchar(20) NOT NULL,
+  `FULLTIME` int(11) NOT NULL,
+  `SHORT` int(11) NOT NULL,
+  `GRAD_TYPE` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_STUD_GROUP`
+--
+
+LOCK TABLES `T_STUD_GROUP` WRITE;
+/*!40000 ALTER TABLE `T_STUD_GROUP` DISABLE KEYS */;
+INSERT INTO `T_STUD_GROUP` VALUES (1,'230105',2009,'ПОиВТ',5,4,0);
+/*!40000 ALTER TABLE `T_STUD_GROUP` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_SUBJECT`
+--
+
+DROP TABLE IF EXISTS `T_SUBJECT`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_SUBJECT` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(100) NOT NULL,
+  `SHORT_NAME` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_SUBJECT`
+--
+
+LOCK TABLES `T_SUBJECT` WRITE;
+/*!40000 ALTER TABLE `T_SUBJECT` DISABLE KEYS */;
+INSERT INTO `T_SUBJECT` VALUES (1,'test_subj','t_s'),(2,'test_subj','t_s'),(3,'test_subj','t_s');
+/*!40000 ALTER TABLE `T_SUBJECT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `T_USER`
+--
+
+DROP TABLE IF EXISTS `T_USER`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `T_USER` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(100) NOT NULL,
+  `PASS` varchar(100) NOT NULL,
+  `EMAIL` varchar(40) DEFAULT NULL,
+  `LOGIN` varchar(40) DEFAULT NULL,
+  `STATUS` bigint(20) NOT NULL DEFAULT '1',
+  `FACULT` bigint(20) NOT NULL DEFAULT '1',
+  `IS_SUPERUSER` bigint(20) NOT NULL DEFAULT '0',
+  `PHONE` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `T_USER`
+--
+
+LOCK TABLES `T_USER` WRITE;
+/*!40000 ALTER TABLE `T_USER` DISABLE KEYS */;
+INSERT INTO `T_USER` VALUES (1,'Vasya','399a2ece6b34ff6e314d87301af489f0','vasya@yandex.ru','medved',1,1,0,'+7(920)5357892'),(3,'test_user','4ac1b63dca561d274c6055ebf3ed97db',NULL,'test_login',1,1,0,NULL),(5,'test_user','4ac1b63dca561d274c6055ebf3ed97db',NULL,'test_login',1,1,0,NULL),(7,'test_user','4ac1b63dca561d274c6055ebf3ed97db',NULL,'test_login',1,1,0,NULL);
+/*!40000 ALTER TABLE `T_USER` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-11-15 21:11:35

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+                            <!-- TYPES --> 
+    <xs:complexType name="response_type">
+        <xs:sequence>
+            <xs:element name="status" type="xs:string"/>
+            <xs:choice>
+                <xs:group ref="auth"/>
+                <xs:group ref="update_and_download"/>
+                <xs:group ref="check"/>
+                <xs:group ref="last_update_info"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="version" type="xs:decimal"/>
+        <xs:attribute name="type">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="auth"/>
+                    <xs:enumeration value="last_update_info"/>
+                    <xs:enumeration value="update"/>
+                    <xs:enumeration value="download"/>
+                    <xs:enumeration value="check"/>
+                    <xs:enumeration value="logout"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="last_up_type">
+        <xs:sequence>
+            <xs:element name="status" type="xs:string"/>    
+            <xs:element name="last_update_dt" type="xs:string"/>  
+        </xs:sequence>
+    </xs:complexType> 
+
+    <xs:complexType name="items_type">
+        <xs:sequence> 
+            <xs:element name="item" type="item_type" minOccurs="0" maxOccurs="unbounded"/>  
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="schedule_type">
+        <xs:sequence>
+            <xs:element name="items" type="items_type"/> 
+        </xs:sequence>
+    </xs:complexType>  
+
+    <xs:complexType name="time_type">
+        <xs:sequence>
+            <xs:element name="period" type="period_type"/>
+        </xs:sequence>
+    </xs:complexType>    
+
+    <xs:complexType name="period_type">
+        <xs:sequence>   
+            <xs:element name="repeat" type="xs:string"/>    
+            <xs:element name="start" type="xs:date" minOccurs="0"/>   
+            <xs:element name="end" type="xs:date" minOccurs="0"/> 
+            <xs:element name="dow" type="xs:string" minOccurs="0"/>   
+            <xs:element name="hours" type="hours_type"/>   
+            <xs:element name="includes" type="dates_type"/>    
+            <xs:element name="excludes" type="dates_type"/>    
+         </xs:sequence>
+     </xs:complexType>
+     
+     <xs:complexType name="hours_type">
+        <xs:sequence>
+            <xs:element name="start" type="xs:string"/>    
+            <xs:element name="end" type="xs:string"/>  
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="dates_type">
+        <xs:sequence>
+            <xs:element name="item" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>  
+
+    <xs:complexType name="item_type">   
+        <xs:sequence>
+            <xs:element name="mode" type="xs:string"/>    
+            <xs:element name="id" type="xs:long"/>  
+            <xs:element name="update_dt" type="xs:string"/>   
+            <xs:element name="checked" type="xs:string"/>
+            <xs:element name="place" type="xs:string"/>   
+            <xs:element name="subject" type="xs:string"/> 
+            <xs:element name="time" type="time_type"/>
+            <xs:element name="groups" type="xs:string"/>    
+            <xs:element name="activities" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+                            <!-- END_TYPES --> 
+
+                            <!-- GROUPS --> 
+    <xs:group name="auth">
+        <xs:sequence>
+            <xs:element name="token" type="xs:long"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="check">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="all_check" type="xs:integer"/>
+            <xs:element name="all_unchecked" type="xs:integer"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="update_and_download">
+        <xs:sequence>
+            <xs:element name="schedule" type="schedule_type"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:group name="last_update_info">
+        <xs:sequence>
+            <xs:element name="last_update_info" type="last_up_type"/>
+        </xs:sequence>
+    </xs:group>        
+                            <!-- END GROUPS -->
+
+    <xs:element name="response" type="response_type"/>
+</xs:schema>

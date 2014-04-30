@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<schema>
+    <table name="T_USER" class="User" sequence="S_USER" xml-name="user">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="NAME" type="string" size="100" null="false" />
+        <column name="PASS" type="string" size="100" null="false" xml-name="!" />
+        <column name="EMAIL" type="string" size="40" />
+        <column name="LOGIN" type="string" size="40" />
+        <column name="STATUS" type="longint" null="false" default="1" />
+        <column name="FACULT" type="longint" null="false" default="1" />
+        <column name="IS_SUPERUSER" type="longint" null="false" default="0" xml-name="!"/>
+        <column name="PHONE" type="string" size="40" />
+    </table>
+
+    <table name="T_SESSION" class="LoginSession" sequence="S_SESSION" xml-name="login-session">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="USR_ID" type="longint" null="false">
+            <foreign-key table="T_USER" />
+        </column>
+        <column name="APP_NAME" type="string" size="100" null="false" />
+        <column name="BEGIN_SESSION" type="datetime" default="sysdate" null="false" />
+        <column name="END_SESSION" type="datetime" />
+        <column name="TOKEN" type="string" size="100" />
+    </table>
+
+    <table name="T_SUBJECT" sequence="S_SUBJECT" class="Subject" xml-name="subject">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="NAME" type="string" size="100" null="false" />
+        <column name="SHORT_NAME" type="string" size="20" null="false" />
+    </table>
+
+    <table name="T_PLACE" sequence="S_PLACE" class="Place" xml-name="place">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="NAME" type="string" size="100" null="false" />
+        <column name="SHORT_NAME" type="string" size="20" null="false" />
+    </table>
+
+    <table name="T_ACTIVITY" sequence="S_ACTIVITY" class="Activity" xml-name="activity">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="NAME" type="string" size="100" null="false" />
+        <column name="SHORT_NAME" type="string" size="20" null="false" />
+    </table>
+
+    <table name="T_STUD_GROUP" sequence="S_STUD_GROUP" class="StudGroup" xml-name="stud-group">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="SPEC_CODE" type="string" size='20' null="false" />
+        <column name="YEAR" type="integer" null="false" />
+        <column name="NAME_CODE" type="string" size="20" null="false" />
+        <column name="FULLTIME" type="integer" null="false" />
+        <column name="SHORT" type="integer" null="false" />
+        <column name="GRAD_TYPE" type="integer" null="false" />
+    </table>
+
+    <table name="T_SCHEDULE" sequence="S_SCHEDULE" class="Schedule" xml-name="schedule">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="UPDATE_DT" type="datetime" null="false" default="sysdate" />
+        <column name="TEACHER_ID" type="longint" null="false">
+            <foreign-key table="T_USER" />
+        </column>
+        <column name="RECEIVER_ID" type="longint" null="false">
+            <foreign-key table="T_USER" />
+        </column>
+        <column name="SUBJECT_ID" type="longint" null="false">
+            <foreign-key table="T_SUBJECT" />
+        </column>
+        <column name="PLACE_ID" type="longint" null="false">
+            <foreign-key table="T_PLACE" />
+        </column>
+        <column name="START_DT" type="datetime" />
+        <column name="END_DT" type="datetime" />
+        <column name="DOW" type="string" size="10" />
+        <column name="REPEAT_TYPE" type="string" size="10" />
+        <column name="START_TIME" type="integer" /> 
+        <column name="END_TIME" type="integer" />
+        <column name="SENT" type="integer" null="false" default="0" />
+        <column name="CHECKED" type="integer" null="false" default="0" />
+    </table>
+
+    <table name="T_SCHEDULE_DATE" sequence="S_SCHEDULE_DATE" class="ScheduleDate" xml-name="schedule-date">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="ITEM_TYPE" type="string" size="10" null="false" />
+        <column name="SCHEDULE_ID" type="longint" null="false">
+            <foreign-key table="T_SCHEDULE" />
+        </column>
+        <column name="DT" type="datetime" null="false" />
+    </table>
+
+    <table name="T_SCHEDULE_GROUP" sequence="S_SCHEDULE_GROUP" class="ScheduleGroup" xml-name="schedule-group">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="SCHEDULE_ID" type="longint" null="false">
+            <foreign-key table="T_SCHEDULE" />
+        </column>
+        <column name="GROUP_ID" type="longint" null="false">
+            <foreign-key table="T_STUD_GROUP" />
+        </column>
+    </table>
+
+    <table name="T_SCHEDULE_ACTIVITY" sequence="S_SCHEDULE_ACTIVITY" class="ScheduleActivity" xml-name="schedule-activity">
+        <column name="ID" type="longint">
+            <primary-key />
+        </column>
+        <column name="SCHEDULE_ID" type="longint" null="false">
+            <foreign-key table="T_SCHEDULE" />
+        </column>
+        <column name="ACTIVITY_ID" type="longint" null="false">
+            <foreign-key table="T_ACTIVITY" />
+        </column>
+    </table>
+
+    <relation type="one-to-many">
+        <one class="User" property="login_sessions" />
+        <many class="LoginSession" property="user" />
+    </relation>
+    <relation type="one-to-many">
+        <one class="User" property="classes" />
+        <many class="Schedule" property="teacher" key="TEACHER_ID" />
+    </relation>
+    <relation type="one-to-many">
+        <one class="User" property="subscriptions" />
+        <many class="Schedule" property="receiver" key="RECEIVER_ID" />
+    </relation>
+    <relation type="one-to-many">
+        <one class="Place" property="classes" />
+        <many class="Schedule" property="place" />
+    </relation>
+    <relation type="one-to-many">
+        <one class="Subject" property="classes" />
+        <many class="Schedule" property="subject" />
+    </relation>
+    <relation type="one-to-many" cascade="delete">
+        <one class="Schedule" property="dates" />
+        <many class="ScheduleDate" property="schedule" />
+    </relation>
+    <relation type="one-to-many" cascade="delete">
+        <one class="Schedule" property="activities" />
+        <many class="ScheduleActivity" property="schedule" />
+    </relation>
+    <relation type="one-to-many" cascade="delete">
+        <one class="Activity" />
+        <many class="ScheduleActivity" property="activity" />
+    </relation>
+    <relation type="one-to-many" cascade="delete">
+        <one class="Schedule" property="groups" />
+        <many class="ScheduleGroup" property="schedule" />
+    </relation>
+    <relation type="one-to-many" cascade="delete">
+        <one class="StudGroup" />
+        <many class="ScheduleGroup" property="group" />
+    </relation>
+
+</schema>

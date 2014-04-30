@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+    <port>19090</port>
+    <db_conn_string>@YBORM_URL@</db_conn_string>
+    <logger_mode>Up</logger_mode>
+    <log_filename>unit_tests.log</log_filename>
+</Settings>
+

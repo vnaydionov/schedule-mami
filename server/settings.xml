@@ -1,0 +1,2 @@
+<Settings><port>19090</port><db_name>schedule_db</db_name><db_dialect>MYSQL</db_dialect><db_driver>DEFAULT</db_driver><db_user>schedule_usr</db_user><db_pass>schedule_pwd</db_pass><logger_mode>Up</logger_mode><log_filename>log.txt</log_filename></Settings>
+

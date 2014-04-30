@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+                            <!-- TYPES --> 
+    <xs:complexType name="request_type">
+        <xs:sequence>
+            <xs:choice>
+                <xs:group ref="auth"/>    
+                <!-- last_update_info/update/download/check/logout -->
+                <xs:group ref="other"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="version" type="xs:decimal"/>
+        <xs:attribute name="type">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="auth"/>
+                    <xs:enumeration value="last_update_info"/>
+                    <xs:enumeration value="update"/>
+                    <xs:enumeration value="download"/>
+                    <xs:enumeration value="check"/>
+                    <xs:enumeration value="logout"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+                            <!-- END_TYPES --> 
+
+                            <!-- GROUPS --> 
+	<xs:group name="auth">
+		<xs:sequence>
+			<xs:element name="login" type="xs:string"/>
+			<xs:element name="pass" type="xs:string"/>
+		</xs:sequence>
+    </xs:group>
+
+    <xs:group name="other">
+        <xs:sequence>
+            <xs:element name="token" type="xs:long"/>
+            <xs:choice minOccurs="0">
+                <xs:element name="id" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:attribute name="checked">
+                            <xs:simpleType> 
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="agree"/>
+	                                <xs:enumeration value="disagre"/>
+	                            </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                    </xs:complexType>
+			    </xs:element>
+                <xs:element name="start_dt" type="xs:string"/>
+            </xs:choice>
+		</xs:sequence>
+    </xs:group>
+
+                                <!-- END_GROUPS -->
+
+    <xs:element name="request" type="request_type"/>
+</xs:schema>

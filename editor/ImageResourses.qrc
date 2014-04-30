@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/dictionary.png</file>
+        <file>images/exit.png</file>
+        <file>images/information.png</file>
+        <file>images/schedule.png</file>
+        <file>images/add.png</file>
+        <file>images/remove.png</file>
+        <file>images/menu.png</file>
+        <file>images/refresh.png</file>
+        <file>images/connect_settings.png</file>
+        <file>images/db_unload.png</file>
+        <file>images/db_upload.png</file>
+        <file>images/security_settings.png</file>
+        <file>images/fon.jpg</file>
+        <file>images/splash_screen.jpeg</file>
+        <file>images/Edit.png</file>
+        <file>images/begin.png</file>
+        <file>images/settings.png</file>
+        <file>images/confirmed.png</file>
+        <file>images/not_confirmed.png</file>
+        <file>images/docx.png</file>
+        <file>images/filter.png</file>
+        <file>images/pdf.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_weight="1.05" >
+
+    <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Хост"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+                style="@style/CustomEditText"
+            android:id="@+id/hostText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView2"
+            android:ems="10" android:layout_column="3" android:layout_span="2">
+
+            <requestFocus />
+        </EditText>
+    </TableRow>
+
+    <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/hostText"
+            android:text="Порт"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+                style="@style/CustomEditText"
+            android:id="@+id/portText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/hostText"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_marginLeft="16dp"
+            android:ems="10" android:layout_column="3"/>
+    </TableRow>
+
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Синхронизировать с календарем"
+            android:id="@+id/syncCheckBox"
+            android:layout_below="@+id/portText"/>
+    <Spinner
+            android:layout_width="231dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/accountSpinner"
+            android:layout_alignLeft="@+id/textView1" android:layout_below="@+id/syncCheckBox"/>
+    <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+    </TableRow>
+    <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+    </TableRow>
+    <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <Button
+            style="@style/PinkButton"
+            android:id="@+id/saveSettingsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="46dp"
+            android:text="Сохранить" android:layout_column="3"/>
+    </TableRow>
+
+</TableLayout>
