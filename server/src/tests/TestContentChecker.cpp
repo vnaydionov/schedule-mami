@@ -2,6 +2,14 @@
 #include "../ContentChecker.h"
 #include "../global.h"
 
+std::string strip_backtrace(const std::string &s)
+{
+    size_t pos = s.find("\nBacktrace:");
+    if (std::string::npos == pos)
+        return s;
+    return s.substr(0, pos);
+}
+
 class TestContentChecker: public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestContentChecker);
@@ -59,7 +67,8 @@ public:
                                 "</request>";            
         ContentChecker contentChecker;
         CPPUNIT_ASSERT_EQUAL(false, contentChecker.contentIsValid(content));
-        CPPUNIT_ASSERT_EQUAL(std::string("pass"), contentChecker.err());
+        CPPUNIT_ASSERT_EQUAL(std::string("pass"),
+                strip_backtrace(contentChecker.err()));
     }
 };
 
