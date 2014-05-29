@@ -2,10 +2,11 @@
 #define APP_H__INCLUDED
 
 #include "logger.h"
-#include <util/ElementTree.h>
-#include <orm/MetaData.h>
-#include <orm/Engine.h>
-#include <orm/DataObject.h>
+#include <util/singleton.h>
+#include <util/element_tree.h>
+#include <orm/schema.h>
+#include <orm/engine.h>
+#include <orm/data_object.h>
 
 #define SETTINGS_FILE "settings.xml"
 

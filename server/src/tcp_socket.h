@@ -1,11 +1,13 @@
 #ifndef _AUTH__TCP_SOCKET_H_
 #define _AUTH__TCP_SOCKET_H_
 
-#if defined(__WIN32__) || defined(_WIN32)
+#include <util/util_config.h>
+#ifdef YBUTIL_WINDOWS
 #include <windows.h>
 #include <winsock.h>
 typedef char SockOpt;
 #else
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -32,7 +34,7 @@ public:
     bool ok() const { return INVALID_SOCKET == s_; }
     void bind(int port);
     void listen();
-    SOCKET accept();
+    SOCKET accept(std::string *ip_addr = NULL, int *ip_port = NULL);
     std::string readline();
     const std::string read(size_t n);
     void write(const std::string &msg);

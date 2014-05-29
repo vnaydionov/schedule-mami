@@ -1,8 +1,8 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
-#include <orm/DataObject.h>
-#include <orm/XMLizer.h>
+#include <orm/data_object.h>
+#include <orm/xmlizer.h>
 
 typedef std::map<std::string, std::string> StringMap;
 

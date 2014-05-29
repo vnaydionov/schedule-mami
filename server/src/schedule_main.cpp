@@ -122,7 +122,7 @@ BaseCommand *createCommand(int commandType, const StringMap &data)
 }
 
 string
-main_handler(StringMap &content)
+main_handler(const Yb::StringDict &content)
 {
     try {
         ContentChecker contentChecker;
@@ -153,7 +153,9 @@ main()
     }
     try {
         //int port = 19090; // TODO: read from config
-        HttpHandlerMap handlers;
+        typedef std::string (*Handler)(const Yb::StringDict &);
+        typedef HttpServer<Handler> ScheduleHttpServer;
+        ScheduleHttpServer::HandlerMap handlers;
         handlers["/main"] = main_handler;
        /* handlers["/adm/login"] = adm_login;
         handlers["/adm/session_info"] = adm_session_info;
@@ -162,7 +164,10 @@ main()
         handlers["/adm/list_activities"] = adm_list_activities;
         handlers["/adm/schedule"] = adm_get_schedule_items;
         */
-        HttpServer server(theApp::instance().get_settings().get_port(), handlers, &theApp::instance());
+        ScheduleHttpServer server(
+                theApp::instance().get_settings().get_port(),
+                handlers, &theApp::instance(),
+                _T("text/xml"), _T("<status>NOT</status>"));
         server.serve();
     }
     catch (const std::exception &ex) {
