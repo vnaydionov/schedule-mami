@@ -5,8 +5,6 @@
 #include <string>
 #include <map>
 
-typedef std::map<std::string, std::string> StringMap;
-
 enum RequestTypes {
     Auth = 1,
     SessionInfo,

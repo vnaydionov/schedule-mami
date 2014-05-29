@@ -32,15 +32,15 @@ unit_tests_SOURCES = \
 
 unit_tests_LDFLAGS=\
 	$(XML_LIBS) \
-	$(BOOST_LDFLAGS) \
-	$(BOOST_LIBS_R) \
+	$(BOOST_THREAD_LDFLAGS) \
+	$(BOOST_THREAD_LIBS) $(BOOST_DATE_TIME_LIBS) \
 	$(ODBC_LIBS) \
-	$(DBPOOL3_LDFLAGS) \
-	$(DBPOOL3_LIBS) \
+	$(SQLITE3_LIBS) \
+	$(SOCI_LIBS) \
+	$(EXECINFO_LIBS) \
 	$(YBORM_LDFLAGS) \
 	$(YBORM_LIBS) \
-	$(CPPUNIT_LIBS) \
-	-lcppunit
+	$(CPPUNIT_LIBS)
 
 TESTS = unit_tests
 

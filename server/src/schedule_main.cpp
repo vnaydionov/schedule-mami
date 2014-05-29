@@ -28,7 +28,7 @@ etree2str(ElementPtr xml)
 
 /*
 string 
-adm_login(StringMap &params)
+adm_login(StringDict &params)
 {      
     Responsible resp(new Requester(AUTH, params, 1, SCHEDULE_ADM));
     resp.process_request();
@@ -37,7 +37,7 @@ adm_login(StringMap &params)
 
 
 string 
-adm_session_info(StringMap &params)
+adm_session_info(StringDict &params)
 {
     Responsible resp(new Requester(SESSION_INFO, params, 1, SCHEDULE_ADM));
     resp.process_request();
@@ -45,7 +45,7 @@ adm_session_info(StringMap &params)
 }
 
 string 
-adm_logout(StringMap &params)
+adm_logout(StringDict &params)
 { 
     Responsible resp(new Requester(LOGOUT, params, 1, SCHEDULE_ADM));
     resp.process_request();
@@ -53,7 +53,7 @@ adm_logout(StringMap &params)
 }
 
 string
-adm_add_activity(StringMap &params)
+adm_add_activity(StringDict &params)
 {
     std::auto_ptr<Yb::Session> session(theApp::instance().new_session());
     AuthControl auth(new Requester(0, params, 1, SCHEDULE_ADM));
@@ -67,7 +67,7 @@ adm_add_activity(StringMap &params)
 }
 
 string
-adm_list_activities(StringMap &params)
+adm_list_activities(StringDict &params)
 {
     std::auto_ptr<Yb::Session> session(theApp::instance().new_session());
     AuthControl auth(new Requester(0, params, 1, SCHEDULE_ADM));
@@ -82,7 +82,7 @@ adm_list_activities(StringMap &params)
 }
 
 string
-adm_get_schedule_items(StringMap &params)
+adm_get_schedule_items(StringDict &params)
 {  
     Responsible resp(new Requester(DOWNLOAD, params, 1, SCHEDULE_ADM));
     resp.process_request();
@@ -90,7 +90,7 @@ adm_get_schedule_items(StringMap &params)
 }
 */
 
-BaseCommand *createCommand(int commandType, const StringMap &data)
+BaseCommand *createCommand(int commandType, const StringDict &data)
 {
     BaseCommand *command;
     switch(commandType) {

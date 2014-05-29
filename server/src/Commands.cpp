@@ -25,7 +25,7 @@ BaseCommand::makeResponse(const std::string &type, const std::string &status)
     return makeResponse(type, status, empty_body);
 }
 
-AuthCommand::AuthCommand(const StringMap &data):
+AuthCommand::AuthCommand(const StringDict &data):
     BaseCommand(data)
 {}
 
@@ -38,7 +38,7 @@ AuthCommand::execute()
     return makeResponse("auth", "OK", Yb::ElementTree::new_element("token", Yb::to_string(token)));
 }
 
-SessionInfoCommand::SessionInfoCommand(const StringMap &data):
+SessionInfoCommand::SessionInfoCommand(const StringDict &data):
     BaseCommand(data)
 {}
 
@@ -56,7 +56,7 @@ SessionInfoCommand::execute()
     return makeResponse("session_info", "OK", ls.xmlize());
 }
 
-LogoutCommand::LogoutCommand(const StringMap &data):
+LogoutCommand::LogoutCommand(const StringDict &data):
     BaseCommand(data)
 {}
 
@@ -71,7 +71,7 @@ LogoutCommand::execute()
     return makeResponse("logout", "FAILED");
 }
 
-DownloadScheduleCommand::DownloadScheduleCommand(const StringMap &data):
+DownloadScheduleCommand::DownloadScheduleCommand(const StringDict &data):
     BaseCommand(data)
 {}
 
@@ -89,7 +89,7 @@ DownloadScheduleCommand::execute()
     return makeResponse("download", "OK", ScheduleControl::download(ls.user, m_data["start_dt"]));
 }
 
-UpdateScheduleCommand::UpdateScheduleCommand(const StringMap &data): 
+UpdateScheduleCommand::UpdateScheduleCommand(const StringDict &data): 
     BaseCommand(data)
 {}
 
@@ -107,7 +107,7 @@ UpdateScheduleCommand::execute()
     return makeResponse("update", "OK", ScheduleControl::download(Domain::UserHolder(*session, ls.user->id)));
 }
 
-CheckScheduleCommand::CheckScheduleCommand(const StringMap &data): 
+CheckScheduleCommand::CheckScheduleCommand(const StringDict &data): 
     BaseCommand(data)
 {}
 
@@ -126,7 +126,7 @@ CheckScheduleCommand::execute()
     return makeResponse("check", "OK", ScheduleControl::download(ls.user, m_data["tree-inspections"]));
 }
 
-LastUpdateInfoCommand::LastUpdateInfoCommand(const StringMap &data):
+LastUpdateInfoCommand::LastUpdateInfoCommand(const StringDict &data):
     BaseCommand(data)
 {}
 

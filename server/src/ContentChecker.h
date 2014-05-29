@@ -4,16 +4,16 @@
 #include "global.h"
 
 class ContentChecker {
-    mutable StringMap m_parsedParams;
+    mutable StringDict m_parsedParams;
     mutable int m_requestType;
     mutable std::string m_err;
-    StringMap parseParams(StringMap &content) const;
+    StringDict parseParams(const StringDict &content) const;
     int checkRequestType(const std::string &type) const;
 public:
     ContentChecker();
-    bool contentIsValid(StringMap &content) const;
+    bool contentIsValid(const StringDict &content) const;
     int requestType() const { return m_requestType; }
-    StringMap parsedParams() { return m_parsedParams; }
+    StringDict parsedParams() { return m_parsedParams; }
     std::string err() const { return m_err; }
 };
 

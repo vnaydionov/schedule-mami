@@ -17,7 +17,7 @@ public:
     {}
     void testCheckContent()
     {   
-        StringMap content;  
+        StringDict content;  
         content["&content-type"] = "text/xml";
         content["&post-data"] = "<request version=\"0.1\" type=\"auth\">\n"
                                     "<login>test_login</login>\n"
@@ -29,7 +29,7 @@ public:
     }
     void testCheckContent_unknown_type()
     {
-        StringMap content;  
+        StringDict content;  
         content["&content-type"] = "json";
         content["&post-data"] = "<request version=\"0.1\" type=\"auth\">\n"
                                     "<login>test_login</login>\n"
@@ -41,7 +41,7 @@ public:
     }
     void testCheckContent_attribute_not_existed()
     {
-        StringMap content;  
+        StringDict content;  
         content["&content-type"] = "text/xml";
         content["&post-data"] = "<request version=\"0.1\" left_attribute=\"123\">\n"
                                     "<login>test_login</login>\n"
@@ -52,7 +52,7 @@ public:
     }
     void testCheckContent_main_tags_not_existed()
     {
-        StringMap content; 
+        StringDict content; 
         content["&content-type"] = "text/xml";
         content["&post-data"] = "<request version=\"0.1\" type=\"auth\">\n"
                                     "<login>test_login</login>\n"

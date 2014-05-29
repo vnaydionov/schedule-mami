@@ -4,7 +4,7 @@ ContentChecker::ContentChecker()
 {}
 
 bool
-ContentChecker::contentIsValid(StringMap &content) const
+ContentChecker::contentIsValid(const StringDict &content) const
 {
     try {
         if (!content["&content-type"].compare("text/xml"))
@@ -19,10 +19,10 @@ ContentChecker::contentIsValid(StringMap &content) const
     return true;
 }
 
-StringMap
-ContentChecker::parseParams(StringMap &content) const
+StringDict
+ContentChecker::parseParams(const StringDict &content) const
 {
-    StringMap params;
+    StringDict params;
     Yb::ElementTree::ElementPtr request_tree = Yb::ElementTree::parse(content["&post-data"]);
     params["version"] = request_tree->get_attr("version");
     params["type"] = request_tree->get_attr("type");
