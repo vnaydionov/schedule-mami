@@ -1,5 +1,5 @@
 #include "domain/Schedule.h"
-#include <orm/DomainFactory.h>
+#include <orm/domain_factory.h>
 namespace Domain {
 
 Schedule::Columns Schedule::c;
@@ -20,7 +20,7 @@ Schedule::Columns::Columns()
     , place_id(_T("PLACE_ID"), Yb::Value::LONGINT, 0, 0, Yb::Value(), _T("T_PLACE"), _T("ID"), _T("place-id"), _T("place_id"))
     , start_dt(_T("START_DT"), Yb::Value::DATETIME, 0, Yb::Column::NULLABLE, Yb::Value(), _T(""), _T(""), _T("start-dt"), _T("start_dt"))
     , end_dt(_T("END_DT"), Yb::Value::DATETIME, 0, Yb::Column::NULLABLE, Yb::Value(), _T(""), _T(""), _T("end-dt"), _T("end_dt"))
-    , dow(_T("DOW"), Yb::Value::STRING, 10, Yb::Column::NULLABLE, Yb::Value(), _T(""), _T(""), _T("dow"), _T("dow"))
+    , dow(_T("DOW"), Yb::Value::STRING, 15, Yb::Column::NULLABLE, Yb::Value(), _T(""), _T(""), _T("dow"), _T("dow"))
     , repeat_type(_T("REPEAT_TYPE"), Yb::Value::STRING, 10, Yb::Column::NULLABLE, Yb::Value(), _T(""), _T(""), _T("repeat-type"), _T("repeat_type"))
     , start_time(_T("START_TIME"), Yb::Value::INTEGER, 0, Yb::Column::NULLABLE, Yb::Value(), _T(""), _T(""), _T("start-time"), _T("start_time"))
     , end_time(_T("END_TIME"), Yb::Value::INTEGER, 0, Yb::Column::NULLABLE, Yb::Value(), _T(""), _T(""), _T("end-time"), _T("end_time"))
@@ -297,7 +297,7 @@ Schedule::find(Yb::Session &session,
 struct ScheduleRegistrator
 {
     static void register_domain() {
-        Yb::theDomainFactory::instance().register_creator(_T("T_SCHEDULE"),
+        Yb::theDomainFactory().register_creator(_T("T_SCHEDULE"),
             Yb::CreatorPtr(new Yb::DomainCreator<Schedule>()));
     }
     ScheduleRegistrator() { register_domain(); }

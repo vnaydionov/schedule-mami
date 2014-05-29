@@ -1,5 +1,5 @@
 #include "domain/ScheduleGroup.h"
-#include <orm/DomainFactory.h>
+#include <orm/domain_factory.h>
 namespace Domain {
 
 ScheduleGroup::Columns ScheduleGroup::c;
@@ -144,7 +144,7 @@ ScheduleGroup::find(Yb::Session &session,
 struct ScheduleGroupRegistrator
 {
     static void register_domain() {
-        Yb::theDomainFactory::instance().register_creator(_T("T_SCHEDULE_GROUP"),
+        Yb::theDomainFactory().register_creator(_T("T_SCHEDULE_GROUP"),
             Yb::CreatorPtr(new Yb::DomainCreator<ScheduleGroup>()));
     }
     ScheduleGroupRegistrator() { register_domain(); }

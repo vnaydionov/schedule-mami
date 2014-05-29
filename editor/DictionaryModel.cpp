@@ -5,7 +5,7 @@
 #include "domain/Place.h"
 #include "domain/StudGroup.h"
 #include <QDebug>
-#include "orm/DomainObject.h"
+#include "orm/domain_object.h"
 #include <QTableView>
 #include <QTextEdit>
 #include <QEvent>

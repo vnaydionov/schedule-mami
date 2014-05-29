@@ -82,7 +82,7 @@
         </column>
         <column name="START_DT" type="datetime" />
         <column name="END_DT" type="datetime" />
-        <column name="DOW" type="string" size="10" />
+        <column name="DOW" type="string" size="15" />
         <column name="REPEAT_TYPE" type="string" size="10" />
         <column name="START_TIME" type="integer" /> 
         <column name="END_TIME" type="integer" />

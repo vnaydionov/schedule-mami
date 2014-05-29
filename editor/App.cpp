@@ -1,5 +1,5 @@
 #include "App.h"
-#include <util/str_utils.hpp>
+#include <util/string_utils.h>
 #include <QFile>
 #include <QTextStream>
 #include <QtXml>
@@ -99,7 +99,7 @@ std::auto_ptr<Yb::Session>
 App::new_session()
 {
     return std::auto_ptr<Yb::Session>(
-            new Yb::Session(Yb::theSchema::instance(), get_engine()));
+            new Yb::Session(Yb::theSchema(), get_engine()));
 }
 
 Yb::ILogger::Ptr 

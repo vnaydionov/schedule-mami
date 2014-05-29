@@ -94,7 +94,7 @@ void ScheduleEditor::on_LoadScheduleBt_clicked()
 {
     if (m_mode != NormalMode)
         switchMode();
-    Yb::Session *session = new Yb::Session(Yb::theSchema::instance(), theApp::instance().get_engine());
+    Yb::Session *session = new Yb::Session(Yb::theSchema(), theApp::instance().get_engine());
     QVector<ScheduleHolder> objects;
     std::auto_ptr<Yb::Session> s = theApp::instance().new_session();
     if (ui->FilterCh->isChecked() && m_filter.first == 0) { // Groups

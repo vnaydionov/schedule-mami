@@ -129,7 +129,7 @@ ScheduleHolder DocxParser::getRow(const Yb::ElementTree::ElementPtr &e, Yb::Sess
 QVector<Domain::ScheduleHolder>
 DocxParser::pasreDocument(const QString &docx)
 {
-    Yb::Session *session = new Yb::Session(Yb::theSchema::instance(), theApp::instance().get_engine());
+    Yb::Session *session = new Yb::Session(Yb::theSchema(), theApp::instance().get_engine());
     QVector<Domain::ScheduleHolder> objects;
 
     Yb::ElementTree::ElementsPtr rows = getTableRowsFromXml(getXmlFromDocx(docx));

@@ -56,7 +56,7 @@
             <primary-key />
         </column>
         <column name="SPEC_CODE" type="string" size='20' null="false" />
-        <column name="YEAR" type="integer" null="false" />
+        <column name="STUD_YEAR" property="year" type="integer" null="false" />
         <column name="NAME_CODE" type="string" size="20" null="false" />
         <column name="FULLTIME" type="integer" null="false" />
         <column name="SHORT" type="integer" null="false" />

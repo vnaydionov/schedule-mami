@@ -1,12 +1,13 @@
 #ifndef APPSETTINGS_H
 #define APPSETTINGS_H
 
-#include <orm/XMLizer.h>
+#include <orm/xmlizer.h>
 #include "logger.h"
-#include <util/ElementTree.h>
-#include <orm/MetaData.h>
-#include <orm/Engine.h>
-#include <orm/DataObject.h>
+#include <util/element_tree.h>
+#include <util/singleton.h>
+#include <orm/schema.h>
+#include <orm/engine.h>
+#include <orm/data_object.h>
 #include <QString>
 
 #define SETTINGS_FILE "settings.xml"

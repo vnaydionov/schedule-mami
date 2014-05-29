@@ -5,8 +5,8 @@
 #include <QStyledItemDelegate>
 #include <QStringList>
 #include <QVector>
-#include "orm/DomainObject.h"
-#include "orm/DataObject.h"
+#include "orm/domain_object.h"
+#include "orm/data_object.h"
 #include "App.h"
 
 struct ColumnsInfo

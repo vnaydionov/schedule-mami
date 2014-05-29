@@ -1,5 +1,5 @@
 #include "domain/Place.h"
-#include <orm/DomainFactory.h>
+#include <orm/domain_factory.h>
 namespace Domain {
 
 Place::Columns Place::c;
@@ -145,7 +145,7 @@ Place::find(Yb::Session &session,
 struct PlaceRegistrator
 {
     static void register_domain() {
-        Yb::theDomainFactory::instance().register_creator(_T("T_PLACE"),
+        Yb::theDomainFactory().register_creator(_T("T_PLACE"),
             Yb::CreatorPtr(new Yb::DomainCreator<Place>()));
     }
     PlaceRegistrator() { register_domain(); }

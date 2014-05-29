@@ -4,8 +4,8 @@
 #include <QDebug>
 #include "domain/ScheduleDate.h"
 #include "domain/Schedule.h"
-#include <orm/MetaData.h>
-#include <orm/DomainFactory.h>
+#include <orm/schema.h>
+#include <orm/domain_factory.h>
 #include "App.h"
 
 using namespace Yb;

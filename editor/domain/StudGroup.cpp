@@ -1,5 +1,5 @@
 #include "domain/StudGroup.h"
-#include <orm/DomainFactory.h>
+#include <orm/domain_factory.h>
 namespace Domain {
 
 StudGroup::Columns StudGroup::c;
@@ -169,7 +169,7 @@ StudGroup::find(Yb::Session &session,
 struct StudGroupRegistrator
 {
     static void register_domain() {
-        Yb::theDomainFactory::instance().register_creator(_T("T_STUD_GROUP"),
+        Yb::theDomainFactory().register_creator(_T("T_STUD_GROUP"),
             Yb::CreatorPtr(new Yb::DomainCreator<StudGroup>()));
     }
     StudGroupRegistrator() { register_domain(); }
