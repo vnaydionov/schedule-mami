@@ -9,9 +9,7 @@ schedule_editor
 .*.swp
 moc_*.cpp
 Makefile
-schedule_editor.pro
 schedule_editor.pro.user
 qrc_*.cpp
 ui_*.h
-*.txt
-*.pdf
+log.txt
