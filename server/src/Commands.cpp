@@ -104,7 +104,7 @@ UpdateScheduleCommand::execute()
     
     std::auto_ptr<Yb::Session> session = theApp::instance().new_session();
     Domain::LoginSession ls(*session, sessionId);
-    return makeResponse("update", "OK", ScheduleControl::download(Domain::UserHolder(*session, ls.user->id)));
+    return makeResponse("update", "OK", ScheduleControl::download(ls.user));
 }
 
 CheckScheduleCommand::CheckScheduleCommand(const StringDict &data): 

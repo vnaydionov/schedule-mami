@@ -14,5 +14,4 @@ schedule_editor.pro.user
 qrc_*.cpp
 ui_*.h
 *.txt
-settings.xml
 *.pdf

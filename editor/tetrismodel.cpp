@@ -12,8 +12,8 @@ TetrisModel::TetrisModel(int columnsCount, int rowsCount, QObject *parent):
     QAbstractItemModel(parent),
     m_rowsCount(rowsCount),
     m_columnsCount(columnsCount),
-    m_timer(NULL),
-    m_score(0)
+    m_score(0),
+    m_timer(NULL)
 {
 
     for (int i=0; i < rowCount(); ++i) {
@@ -333,7 +333,7 @@ void TetrisModel::rotateShape()
 void TetrisModel::createShape(QModelIndex _center, int _state)
 {
    if (m_typeNextShape == NullShape) {
-        if (_state = RandomState)
+        if (RandomState == _state)
             _state = rand()%5;
         m_shapeState = _state;
         m_typeCurrentShape = rand()%5;

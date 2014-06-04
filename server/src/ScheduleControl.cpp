@@ -111,8 +111,8 @@ ScheduleControl::download(Domain::UserHolder user, const std::string &startDt)
     QueryObj<Schedule> expression(*session, Schedule::c.teacher_id == user->id);
 
     if (!startDt.empty()) {
-        DateTime d; 
-        expression.filter_by(Schedule::c.start_dt == from_string(startDt, d));
+        DateTime d;
+        expression.filter_by(Schedule::c.start_dt >= from_string(startDt, d));
     } else
         expression.filter_by(Schedule::c.sent == 0);
 

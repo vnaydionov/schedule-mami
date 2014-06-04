@@ -1,0 +1,11 @@
+<Settings>
+    <Security>
+        <authentication>Up</authentication>
+        <login/>
+        <pass/>
+    </Security>
+    <Database>
+        <db_url>mysql+odbc://schedule_usr:schedule_pwd@schedule_db</db_url>
+        <logger_mode>Up</logger_mode>
+    </Database>
+</Settings>

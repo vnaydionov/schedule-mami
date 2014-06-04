@@ -61,7 +61,7 @@ HttpServerBase::process(HttpServerBase *server, SOCKET cl_s)
                 try {
                     Strings parts;
                     split_str_by_chars(s2, _T(" "), parts, 2);
-                    from_string(parts[1], cont_len);
+                    from_string(trim_trailing_space(parts[1]), cont_len);
                 }
                 catch (const std::exception &ex) {
                     logger->warning(
