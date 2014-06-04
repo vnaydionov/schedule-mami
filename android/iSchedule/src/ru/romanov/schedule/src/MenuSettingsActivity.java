@@ -53,8 +53,8 @@ public class MenuSettingsActivity extends Activity implements OnClickListener {
         getCalendars();
 
 
-		this.host = mSharedPreferences.getString("host", "");
-		this.port = mSharedPreferences.getString("port", "");
+		this.host = mSharedPreferences.getString("host", StringConstants.DEFAULT_HOST);
+		this.port = mSharedPreferences.getString("port", StringConstants.DEFAULT_PORT);
         this.isChecked = mSharedPreferences.getBoolean("syncCalendar", false);
         this.calendarName = mSharedPreferences.getString("calendarName", null);
         if (calendarName == null)

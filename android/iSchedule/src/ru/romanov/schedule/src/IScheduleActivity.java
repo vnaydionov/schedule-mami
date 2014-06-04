@@ -156,8 +156,8 @@ public class IScheduleActivity extends Activity {
 			}
 			HttpResponse responce = null;
 			try {
-				String url = mSharedPreferences.getString("host", "");
-				String port = mSharedPreferences.getString("port", "");
+				String url = mSharedPreferences.getString("host", StringConstants.DEFAULT_HOST);
+				String port = mSharedPreferences.getString("port", StringConstants.DEFAULT_PORT);
 				String uri = url + ":" + port + "/main";
 				HttpPost request = new HttpPost(uri);
 				

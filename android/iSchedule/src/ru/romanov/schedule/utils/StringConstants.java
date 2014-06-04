@@ -2,9 +2,11 @@ package ru.romanov.schedule.utils;
 
 public abstract class StringConstants {
 	
-	public static String MY_URI = "http://46.46.148.100:19090/main";
+	public static String DEFAULT_HOST = "http://172.16.16.213";
+	public static String DEFAULT_PORT = "19090";
+	public static String MY_URI = DEFAULT_HOST + ":" + DEFAULT_PORT + "/main";
 	
-	public static String SCHEDULE_SHARED_PREFERENCES = "shedulesharedpreferences";
+	public static String SCHEDULE_SHARED_PREFERENCES = "schedule_mami_shared";
 	public static String MY_SCHEDULE = "my_schedule";
 	public static String TOKEN = "token";
 	public static String SHARED_LOGIN = "login";
