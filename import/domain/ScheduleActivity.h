@@ -1,7 +1,7 @@
 #ifndef ORM_DOMAIN__SCHEDULEACTIVITY__INCLUDED
 #define ORM_DOMAIN__SCHEDULEACTIVITY__INCLUDED
 
-#include <orm/DomainObject.h>
+#include <orm/domain_object.h>
 // AUTOGEN_BEGIN(001) {
 #include "domain/Schedule.h"
 #include "domain/Activity.h"

@@ -1,5 +1,5 @@
 #include "domain/LoginSession.h"
-#include <orm/DomainFactory.h>
+#include <orm/domain_factory.h>
 namespace Domain {
 
 LoginSession::Columns LoginSession::c;
@@ -164,7 +164,7 @@ LoginSession::find(Yb::Session &session,
 struct LoginSessionRegistrator
 {
     static void register_domain() {
-        Yb::theDomainFactory::instance().register_creator(_T("T_SESSION"),
+        Yb::theDomainFactory().register_creator(_T("T_SESSION"),
             Yb::CreatorPtr(new Yb::DomainCreator<LoginSession>()));
     }
     LoginSessionRegistrator() { register_domain(); }

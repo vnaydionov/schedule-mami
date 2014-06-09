@@ -3,7 +3,7 @@
 SharedObj::SharedObj()
 {
     Yb::init_schema();
-    std::auto_ptr<Yb::SqlConnection> conn(new Yb::SqlConnection("mysql+qodbc3://schedule"));
+    std::auto_ptr<Yb::SqlConnection> conn(new Yb::SqlConnection("mysql+qodbc3://schedule_usr:schedule_pwd@schedule_dsn"));
     engine_.reset(new Yb::Engine(Yb::Engine::READ_WRITE, conn));
     engine_->set_echo(true);
 }

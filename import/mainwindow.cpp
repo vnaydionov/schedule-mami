@@ -95,7 +95,7 @@ MainWindow::saveTable()
     QVBoxLayout *layout = (QVBoxLayout *) ui->infoLayout;
     QComboBox *cb = (QComboBox *) layout->takeAt(0)->widget();
 
-    Yb::Session session(Yb::theSchema::instance(), SharedObjSingleton::instance().getEngine());
+    Yb::Session session(Yb::theSchema(), SharedObjSingleton::instance().getEngine());
     qDebug() << "Name: " << cb->currentText();
     Domain::User user = Yb::query<Domain::User>(session)
             .filter_by(Domain::User::c.name == cb->currentText()).one();
@@ -170,7 +170,7 @@ MainWindow::getUsers()
 {
     QStringList userList;
 
-    Yb::Session session(Yb::theSchema::instance(), SharedObjSingleton::instance().getEngine());
+    Yb::Session session(Yb::theSchema(), SharedObjSingleton::instance().getEngine());
     Yb::DomainResultSet<Domain::User> users = Yb::query<Domain::User>(session).all();
     Yb::DomainResultSet<Domain::User>::iterator ibegin = users.begin(), iend = users.end();
     for (; ibegin != iend; ++ibegin)

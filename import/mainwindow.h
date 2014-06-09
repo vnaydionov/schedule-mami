@@ -20,7 +20,7 @@
 #include "widget.h"
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <orm/MetaData.h>
+#include <orm/schema.h>
 #include "domain/User.h"
 #include "sharedobj.h"
 #include "schedulemanager.h"

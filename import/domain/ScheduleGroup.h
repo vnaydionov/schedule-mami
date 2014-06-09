@@ -1,7 +1,7 @@
 #ifndef ORM_DOMAIN__SCHEDULEGROUP__INCLUDED
 #define ORM_DOMAIN__SCHEDULEGROUP__INCLUDED
 
-#include <orm/DomainObject.h>
+#include <orm/domain_object.h>
 // AUTOGEN_BEGIN(001) {
 #include "domain/Schedule.h"
 #include "domain/StudGroup.h"

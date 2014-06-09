@@ -1,7 +1,7 @@
 #ifndef ORM_DOMAIN__USER__INCLUDED
 #define ORM_DOMAIN__USER__INCLUDED
 
-#include <orm/DomainObject.h>
+#include <orm/domain_object.h>
 // AUTOGEN_BEGIN(001) {
 // } AUTOGEN_END
 
