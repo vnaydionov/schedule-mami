@@ -1,7 +1,7 @@
 #ifndef ORM_DOMAIN__STUDGROUP__INCLUDED
 #define ORM_DOMAIN__STUDGROUP__INCLUDED
 
-#include <orm/DomainObject.h>
+#include <orm/domain_object.h>
 // AUTOGEN_BEGIN(001) {
 // } AUTOGEN_END
 

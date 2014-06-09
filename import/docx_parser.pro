@@ -53,14 +53,27 @@ HEADERS  += domain/User.h \
 
 FORMS    += mainwindow.ui
 
+CONFIG += qt
+
+LIBS += -L/home/vaclav/work/yb-orm.inst-qt/lib/ -lyborm -lybutil
+INCLUDEPATH += /home/vaclav/work/yb-orm.inst-qt/include/yb
+DEPENDPATH += /home/vaclav/work/yb-orm.inst-qt/include/yb
+
+##LIBS += -L/home/vaclav/inst-qt/lib/ -lyborm -lybutil
+##INCLUDEPATH += /home/vaclav/inst-qt/include/yb
+##DEPENDPATH += /home/vaclav/inst-qt/include/yb
+
 ##LIBS += -L c:/yborm/lib/ -lyborm -lybutil
 ##INCLUDEPATH += c:/yborm/include/yb
 ##DEPENDPATH += c:/yborm/include/yb
-LIBS += -L /home/vaclav/inst-qt/lib/ -lyborm -lybutil -lsqlite3 -lodbc -lsoci_core
-INCLUDEPATH += /home/vaclav/inst-qt/include/yb
-DEPENDPATH += /home/vaclav/inst-qt/include/yb
+
+sql-plugins += odbc
+
+##INCLUDEPATH += /usr/include
+##LIBS += -L/usr/lib/odbc/ -lodbc
 
 DEFINES += YB_USE_QT
+
 
 ##INCLUDEPATH += C:\QtSDK\Desktop\Qt\4.8.1\src\gui\text
 ##INCLUDEPATH += C:\QtSDK\Desktop\Qt\4.8.1\src\3rdparty\zlib

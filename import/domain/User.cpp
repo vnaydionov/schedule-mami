@@ -1,5 +1,5 @@
 #include "domain/User.h"
-#include <orm/DomainFactory.h>
+#include <orm/domain_factory.h>
 namespace Domain {
 
 User::Columns User::c;
@@ -229,7 +229,7 @@ User::find(Yb::Session &session,
 struct UserRegistrator
 {
     static void register_domain() {
-        Yb::theDomainFactory::instance().register_creator(_T("T_USER"),
+        Yb::theDomainFactory().register_creator(_T("T_USER"),
             Yb::CreatorPtr(new Yb::DomainCreator<User>()));
     }
     UserRegistrator() { register_domain(); }

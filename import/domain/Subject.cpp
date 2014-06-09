@@ -1,5 +1,5 @@
 #include "domain/Subject.h"
-#include <orm/DomainFactory.h>
+#include <orm/domain_factory.h>
 namespace Domain {
 
 Subject::Columns Subject::c;
@@ -145,7 +145,7 @@ Subject::find(Yb::Session &session,
 struct SubjectRegistrator
 {
     static void register_domain() {
-        Yb::theDomainFactory::instance().register_creator(_T("T_SUBJECT"),
+        Yb::theDomainFactory().register_creator(_T("T_SUBJECT"),
             Yb::CreatorPtr(new Yb::DomainCreator<Subject>()));
     }
     SubjectRegistrator() { register_domain(); }

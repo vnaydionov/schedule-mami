@@ -7,7 +7,7 @@ ScheduleManager::ScheduleManager(Domain::User *user):
     specialCaseProcessed_(false)
 {
     user_ = user;
-    session_ = new Yb::Session(Yb::theSchema::instance()
+    session_ = new Yb::Session(Yb::theSchema()
                                , SharedObjSingleton::instance().getEngine());
 
     handlers_.insert(_R("День"), &ScheduleManager::dowHandler);

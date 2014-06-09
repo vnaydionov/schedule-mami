@@ -1,8 +1,9 @@
 #ifndef SHAREDOBJ_H
 #define SHAREDOBJ_H
 
-#include <orm/MetaData.h>
-#include <orm/Engine.h>
+#include <orm/schema.h>
+#include <orm/engine.h>
+#include <util/singleton.h>
 #include <QStringList>
 #include <QScopedPointer>
 #include "documentparser.h"

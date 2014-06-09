@@ -1,5 +1,5 @@
 #include "domain/StudGroup.h"
-#include <orm/DomainFactory.h>
+#include <orm/domain_factory.h>
 namespace Domain {
 
 StudGroup::Columns StudGroup::c;
@@ -14,7 +14,7 @@ namespace {
 StudGroup::Columns::Columns()
     : id(_T("ID"), Yb::Value::LONGINT, 0, Yb::Column::PK, Yb::Value(), _T(""), _T(""), _T("id"), _T("id"))
     , spec_code(_T("SPEC_CODE"), Yb::Value::STRING, 20, 0, Yb::Value(), _T(""), _T(""), _T("spec-code"), _T("spec_code"))
-    , year(_T("YEAR"), Yb::Value::INTEGER, 0, 0, Yb::Value(), _T(""), _T(""), _T("year"), _T("year"))
+    , year(_T("STUD_YEAR"), Yb::Value::INTEGER, 0, 0, Yb::Value(), _T(""), _T(""), _T("stud-year"), _T("year"))
     , name_code(_T("NAME_CODE"), Yb::Value::STRING, 20, 0, Yb::Value(), _T(""), _T(""), _T("name-code"), _T("name_code"))
     , fulltime(_T("FULLTIME"), Yb::Value::INTEGER, 0, 0, Yb::Value(), _T(""), _T(""), _T("fulltime"), _T("fulltime"))
     , short_(_T("SHORT"), Yb::Value::INTEGER, 0, 0, Yb::Value(), _T(""), _T(""), _T("short"), _T("short"))
@@ -169,7 +169,7 @@ StudGroup::find(Yb::Session &session,
 struct StudGroupRegistrator
 {
     static void register_domain() {
-        Yb::theDomainFactory::instance().register_creator(_T("T_STUD_GROUP"),
+        Yb::theDomainFactory().register_creator(_T("T_STUD_GROUP"),
             Yb::CreatorPtr(new Yb::DomainCreator<StudGroup>()));
     }
     StudGroupRegistrator() { register_domain(); }
