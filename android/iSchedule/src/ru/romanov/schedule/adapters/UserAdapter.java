@@ -1,12 +1,12 @@
 package ru.romanov.schedule.adapters;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import ru.romanov.schedule.utils.StringConstants;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import ru.romanov.schedule.utils.StringConstants;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class UserAdapter {
 	public static final String NAME = "name";

@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.util.Log;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -45,16 +47,22 @@ public class UpdateService extends Service{
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Log.i("Service", "UpdateService started");
 		SharedPreferences mSharedPreferences = getSharedPreferences(
 				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
 		String token = mSharedPreferences.getString(StringConstants.TOKEN, null);
-		if (token == null)
+		if (token == null) {
+			Log.i("Service", "No token - exit service");
 			return;
+		}
 		if (isNetworkAvailable()){
+			Log.i("Service", "Starting AsyncUpdater");
 			AsyncUpdater updater = new AsyncUpdater(this, token);
 			updater.execute();
 		}
-		
+		else {
+			Log.i("Service", "Not starting AsyncUpdater");
+		}
 	}
 	
 	private class AsyncUpdater extends
@@ -71,10 +79,12 @@ public class UpdateService extends Service{
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			Log.i("AsyncUpdater", "AsyncUpdater onPreExecute");
 		}
 	
 		@Override
 		protected ArrayList<Subject> doInBackground(Void... params) {
+			Log.i("AsyncUpdater", "AsyncUpdater doInBackground");
 			HttpClient client = new DefaultHttpClient();
 			String reqString = null;
 			try {
@@ -121,6 +131,7 @@ public class UpdateService extends Service{
 		@Override
 		protected void onPostExecute(ArrayList<Subject> subjects) {
 			super.onPostExecute(subjects);
+			Log.i("AsyncUpdater", "AsyncUpdater onPostExecute");
 			if (subjects != null) {
 				UpdateManager.notificateAboutUpdate(context);
 			}

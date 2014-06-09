@@ -8,7 +8,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/authText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -61,7 +61,7 @@
             android:layout_width="231dp"
             android:layout_height="wrap_content"
             android:id="@+id/accountSpinner"
-            android:layout_alignLeft="@+id/textView1" android:layout_below="@+id/syncCheckBox"/>
+            android:layout_alignLeft="@+id/authText" android:layout_below="@+id/syncCheckBox"/>
     <TableRow
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">

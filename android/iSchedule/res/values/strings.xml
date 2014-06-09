@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Расписание МГОУ</string>
+    <string name="app_name">Расписание МАМИ</string>
+    <string name="login_empty">Укажите логин</string>
+    <string name="password_empty">Введите пароль</string>
     <string name="login_error">Ошибка входа. Проверьте правильность логина и пароля и повторите попытку</string>
     <string name="loading">Загрузка</string>
     <string name="auth_success">Авторизация пройдена</string>

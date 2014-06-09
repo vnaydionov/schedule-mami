@@ -1,7 +1,20 @@
 package ru.romanov.schedule.src;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import ru.romanov.schedule.R;
+import ru.romanov.schedule.adapters.SubjectAdapter;
+import ru.romanov.schedule.utils.CalendarManager;
+import ru.romanov.schedule.utils.StringConstants;
+import ru.romanov.schedule.utils.Subject;
+import ru.romanov.schedule.utils.UpdateService;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,19 +22,13 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TextView;
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.adapters.SubjectAdapter;
-import ru.romanov.schedule.utils.CalendarManager;
-import ru.romanov.schedule.utils.StringConstants;
-import ru.romanov.schedule.utils.Subject;
 
-import java.util.ArrayList;
-
+@SuppressWarnings("deprecation")
 public class MainTabActivity extends TabActivity {
 
 	TextView lastSyncTV;
@@ -30,6 +37,7 @@ public class MainTabActivity extends TabActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.i("Activity", "MainTabActivity created");
 		setContentView(R.layout.main_tab_layout);
 		lastSyncTV = (TextView) findViewById(R.id.maintab_last_sync);
 		Resources res = getResources(); // Resource object to get Drawables
@@ -37,8 +45,70 @@ public class MainTabActivity extends TabActivity {
 		TabHost.TabSpec spec; // Resusable TabSpec for each tab
 		Intent intent; // Reusable Intent for each tab
 		
-		//startService(new Intent(this, UpdateService.class));
+//		final Intent scheduleIntent = new Intent(this, ScheduleListActivity.class);
+//		final Intent updateIntent = new Intent(this, UpdateListActivity.class);
+//		
+//		ActionBar actionBar = getActionBar();
+//		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//		
+//		Tab scheduleTab = actionBar.newTab();
+//		scheduleTab.setText(R.string.schedule);
+//		scheduleTab.setTabListener(new TabListener() {
+//			
+//			@Override
+//			public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+//				
+//			}
+//			
+//			@Override
+//			public void onTabSelected(Tab tab, FragmentTransaction ft) {
+//				startActivity(scheduleIntent); 
+//			}
+//			
+//			@Override
+//			public void onTabReselected(Tab tab, FragmentTransaction ft) {	
+//			}
+//		});
+//		actionBar.addTab(scheduleTab);
+//		
+//		Tab updatesTab = actionBar.newTab();
+//		updatesTab.setText(R.string.updates);
+//		updatesTab.setTabListener(new TabListener() {
+//			
+//			@Override
+//			public void onTabUnselected(Tab tab, FragmentTransaction ft) {	
+//				
+//			}
+//			
+//			@Override
+//			public void onTabSelected(Tab tab, FragmentTransaction ft) {
+//				startActivity(updateIntent); 
+//			}
+//			
+//			@Override
+//			public void onTabReselected(Tab tab, FragmentTransaction ft) {	
+//			}
+//		});
+//		actionBar.addTab(updatesTab);
+		
+		
+		Intent uintent = new Intent(this, UpdateService.class);
+		Log.i("Service", "UpdateService starting");
+		startService(uintent);
 
+		// TODO: get some inspiration from here:
+		// http://www.vogella.com/tutorials/AndroidServices/article.html#service_backgroundprocessing
+		// 8. Exercise: Define and consume local service
+
+		// This does not suffice
+//		PendingIntent pintent = PendingIntent.getService(this, 0, uintent, 0);
+//		Calendar cal = Calendar.getInstance();
+//		AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//		// Start every 30 seconds
+//		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 30*1000, pintent);
+		
+
+		
 		// Create an Intent to launch an Activity for the tab (to be reused)
 		intent = new Intent().setClass(this, ScheduleListActivity.class);
 
@@ -56,6 +126,7 @@ public class MainTabActivity extends TabActivity {
 		tabHost.setCurrentTab(0);
 		
 	}
+	
 
 	@Override
 	protected void onResume() {
@@ -69,10 +140,8 @@ public class MainTabActivity extends TabActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
+		getMenuInflater().inflate(R.menu.main_activity_menu, menu);
 		return true;
 	}
 
@@ -80,13 +149,13 @@ public class MainTabActivity extends TabActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
-		case R.id.menu_check:
-
-            testCalendar();
+		case R.id.menu_check_updates:
+            this.testCalendar();
 			break;
 		case R.id.menu_exit:
 			AlertDialog alert = getExitAlertDialog();
 			alert.show();
+			//new ExitDialogFragment(question).show(getSupportFragmentManager(), tag)
 			break;
 		case R.id.menu_info:
 			intent = new Intent(this, UserInfoDialogActivity.class);
@@ -164,6 +233,47 @@ public class MainTabActivity extends TabActivity {
 							}
 						});
 		return builder.create();
+	}
+
+}
+
+
+class ExitDialogFragment extends android.support.v4.app.DialogFragment
+{
+	String question;
+	
+	public ExitDialogFragment(String question)
+	{
+		this.question = question;
+	}
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setIcon(R.drawable.ic_launcher);
+		builder.setTitle(R.string.app_name);
+		builder.setMessage(this.question);
+		builder.setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				
+			}
+		});
+		
+		builder.setNegativeButton(getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		return super.onCreateDialog(savedInstanceState);
 	}
 
 }

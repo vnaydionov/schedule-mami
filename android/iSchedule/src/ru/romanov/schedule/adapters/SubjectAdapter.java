@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import ru.romanov.schedule.utils.Subject;
 
 import java.util.ArrayList;
@@ -47,7 +48,6 @@ public class SubjectAdapter extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
 	}
 	
 	public void saveSubject(Subject subj) {
@@ -145,10 +145,11 @@ public class SubjectAdapter extends SQLiteOpenHelper {
 		ArrayList<Subject> subjects = new ArrayList<Subject>();
 		HashMap<String, String> rawSubj = new HashMap<String, String>();
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.query(true, TABLE_NAME, columns, null, null, null, null, null, null);
-		if (cursor != null) {
+		Cursor cursor = db.query(true, TABLE_NAME, null, null, null, null, null, null, null);
+		if (cursor != null && cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			String[] names = cursor.getColumnNames();
+			Log.i("getAll", names.toString());
 			for (int i = 0; i < names.length; ++i) {
 				rawSubj.put(names[i], cursor.getString(i));
 			}
