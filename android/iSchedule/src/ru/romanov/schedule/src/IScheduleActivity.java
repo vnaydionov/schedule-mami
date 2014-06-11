@@ -90,6 +90,7 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 					passEditText.getText().toString());
 				pram.execute();
 				this.startMainTabActivity();
+				//Прывэд
 			}
 		}
 	}
@@ -97,6 +98,7 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		//kjk
 	}
 	
 	private void setUpdateAlarm() {
