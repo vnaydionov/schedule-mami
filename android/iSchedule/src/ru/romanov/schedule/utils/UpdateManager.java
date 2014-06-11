@@ -1,18 +1,21 @@
 package ru.romanov.schedule.utils;
 
+import ru.romanov.schedule.src.MainTabActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import ru.romanov.schedule.src.MainTabActivity;
 
 public class UpdateManager extends BroadcastReceiver {
+	private static final long REPEAT_TIME = 1000 * 10;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		context.startService(new Intent(context, UpdateService.class));
+		//context.startService(new Intent(context, UpdateService.class));
+		//AlarmManager
 	}
 	
 	public static void notificateAboutUpdate(Context context){
