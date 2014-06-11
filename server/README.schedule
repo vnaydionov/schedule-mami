@@ -29,7 +29,7 @@ sh autogen.sh
   --with-test-user=test1 --with-test-passwd=test1_pwd --disable-static \
   --prefix=/home/vaclav/inst1
 make check && make install
-
+zdes` vil vasya
 Then you can build Schedule itself, like this:
 sh autogen.sh
 ./configure --with-test-dbtype=MYSQL --with-test-db=schedule_db \
