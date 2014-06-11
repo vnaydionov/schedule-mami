@@ -1,10 +1,10 @@
 #ifndef APPSETTINGS_H
 #define APPSETTINGS_H
 
-#include <orm/xmlizer.h>
+#include </home/student/yb-orm.inst_qt/include/yb/orm/xmlizer.h>
 #include "logger.h"
-#include <util/element_tree.h>
-#include <util/singleton.h>
+#include </home/student/yb-orm.inst_qt/include/yb/util/element_tree.h>
+#include </home/student/yb-orm.inst_qt/include/yb/util/singleton.h>
 #include <orm/schema.h>
 #include <orm/engine.h>
 #include <orm/data_object.h>

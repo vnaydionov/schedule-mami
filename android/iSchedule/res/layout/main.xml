@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
-    android:longClickable="true"
+    android:longClickable="true" 
     android:orientation="vertical"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="5dp" >
+	android:background="#ffffff">
 
     <TextView
-        android:id="@+id/authText"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
         android:text="Авторизация"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="normal"
-        android:visibility="visible" />
+        android:layout_centerHorizontal="true" android:layout_alignParentTop="true" android:layout_marginTop="11dp"
+        android:textStyle="normal" android:visibility="visible"/>
 
     <EditText
         style="@style/CustomEditText"
@@ -28,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/authText"
+        android:layout_below="@+id/textView1"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/login"
@@ -56,11 +51,10 @@
         android:id="@+id/logInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/authText"
-        android:layout_alignRight="@+id/authText"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignRight="@+id/textView1"
         android:layout_below="@+id/passEText"
         android:layout_marginTop="32dp"
-        android:text="@string/enter" 
-        android:textSize="20sp"/>
+        android:text="@string/enter" android:textSize="20dp"/>
 
 </RelativeLayout>

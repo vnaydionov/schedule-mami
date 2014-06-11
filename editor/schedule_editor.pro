@@ -74,9 +74,9 @@ ScheduleDatesDialog.ui
 
 CONFIG += qt
 
-LIBS += -L/home/vaclav/work/yb-orm.inst-qt/lib/ -lyborm -lybutil
-INCLUDEPATH += /home/vaclav/work/yb-orm.inst-qt/include/yb
-DEPENDPATH += /home/vaclav/work/yb-orm.inst-qt/include/yb
+LIBS += -L/home/student/yb-orm.inst_qt/lib/ -lyborm -lybutil
+INCLUDEPATH += /home/student/yb-orm.inst_qt/include/yb
+DEPENDPATH += /home/student/yb-orm.inst_qt/include/yb
 
 ##LIBS += -L/home/vaclav/inst-qt/lib/ -lyborm -lybutil
 ##INCLUDEPATH += /home/vaclav/inst-qt/include/yb
