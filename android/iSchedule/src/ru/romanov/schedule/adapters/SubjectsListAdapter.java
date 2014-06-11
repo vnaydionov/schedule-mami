@@ -1,9 +1,5 @@
 package ru.romanov.schedule.adapters;
 
-import java.util.ArrayList;
-
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.utils.Subject;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -11,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import ru.romanov.schedule.R;
+import ru.romanov.schedule.utils.Subject;
+
+import java.util.ArrayList;
 
 public class SubjectsListAdapter extends BaseExpandableListAdapter{
 	

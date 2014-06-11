@@ -1,7 +1,7 @@
 #ifndef ORM_DOMAIN__SCHEDULEDATE__INCLUDED
 #define ORM_DOMAIN__SCHEDULEDATE__INCLUDED
 
-#include <orm/domain_object.h>
+#include <orm/DomainObject.h>
 // AUTOGEN_BEGIN(001) {
 #include "domain/Schedule.h"
 // } AUTOGEN_END

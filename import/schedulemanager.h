@@ -5,7 +5,7 @@
 #include "documentparser.h"
 #include "mainwindow.h"
 #include <QStringList>
-#include <orm/schema.h>
+#include <orm/MetaData.h>
 #include "domain/User.h"
 #include "sharedobj.h"
 #include <QMap>

@@ -1,5 +1,5 @@
 #include "domain/Activity.h"
-#include <orm/domain_factory.h>
+#include <orm/DomainFactory.h>
 namespace Domain {
 
 Activity::Columns Activity::c;
@@ -137,7 +137,7 @@ Activity::find(Yb::Session &session,
 struct ActivityRegistrator
 {
     static void register_domain() {
-        Yb::theDomainFactory().register_creator(_T("T_ACTIVITY"),
+        Yb::theDomainFactory::instance().register_creator(_T("T_ACTIVITY"),
             Yb::CreatorPtr(new Yb::DomainCreator<Activity>()));
     }
     ActivityRegistrator() { register_domain(); }
