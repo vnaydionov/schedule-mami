@@ -1,15 +1,21 @@
 package ru.romanov.schedule.utils;
 
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.IBinder;
-import android.util.Log;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,31 +29,51 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
 import ru.romanov.schedule.adapters.SubjectAdapter;
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.Binder;
+import android.os.IBinder;
+import android.util.Log;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-
-public class UpdateService extends Service{
-
+public class UpdateService extends Service {
+	public final IBinder binder = new MyBinder();
+	
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.binder;
+	}
+	
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		Log.i("Service", "onStartCommand");
+		SharedPreferences mSharedPreferences = getSharedPreferences(
+				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
+		String token = mSharedPreferences.getString(StringConstants.TOKEN, null);
+		if (token != null)
+			if (isNetworkAvailable()){
+				Log.i("Service", "Starting AsyncUpdater");
+				AsyncUpdater updater = new AsyncUpdater(this, token);
+				updater.execute();
+			}
+			else 
+				Log.i("Service", "Not starting AsyncUpdater (network unavailable)");
+		else
+			Log.i("Service", "No token - exit service");
+		return super.onStartCommand(intent, flags, startId);
 	}
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Log.i("Service", "UpdateService started");
+		Log.i("Service", "UpdateService created");
 		SharedPreferences mSharedPreferences = getSharedPreferences(
 				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
 		String token = mSharedPreferences.getString(StringConstants.TOKEN, null);
@@ -90,7 +116,6 @@ public class UpdateService extends Service{
 			try {
 				reqString = RequestStringsCreater.createUpdateString(token);
 			} catch (ParserConfigurationException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			HttpResponse response = null;
@@ -204,6 +229,12 @@ public class UpdateService extends Service{
 			}
 			return subjects;
 		}
+	}
+	
+	public class MyBinder extends Binder {
+	    UpdateService getService() {
+	      return UpdateService.this;
+	    }
 	}
 	
 	private boolean isNetworkAvailable() {
