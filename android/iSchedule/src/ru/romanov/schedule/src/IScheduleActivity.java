@@ -43,6 +43,7 @@ import android.widget.Toast;
 
 public class IScheduleActivity extends Activity implements OnClickListener {
 
+    //Уася!
 	private SharedPreferences mSharedPreferences;
 	private EditText loginEditText;
 	private EditText passEditText;
