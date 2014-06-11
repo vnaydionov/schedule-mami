@@ -14,13 +14,16 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.TabActivity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.Menu;
@@ -30,10 +33,27 @@ import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
 public class MainTabActivity extends TabActivity {
+	private UpdateService serv;
 
 	TextView lastSyncTV;
     private static final Uri EVENT_URI = CalendarContract.Events.CONTENT_URI;
     private static final String ACCOUNT_NAME = "buyvich@gmail.com";
+    
+	private ServiceConnection connection = new ServiceConnection() {
+			
+			@Override
+			public void onServiceDisconnected(ComponentName name) {
+				Log.i("ServiceConnection", "Service UpdateManager disconnected");
+				serv = null;
+			}
+			
+			@Override
+			public void onServiceConnected(ComponentName name, IBinder service) {
+				UpdateService.MyBinder binder = (UpdateService.MyBinder) service;
+				serv = binder.getService();
+				Log.i("ServiceConnection", "Service UpdateManager connected");
+			}
+	};
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,9 +112,9 @@ public class MainTabActivity extends TabActivity {
 //		actionBar.addTab(updatesTab);
 		
 		
-		Intent uintent = new Intent(this, UpdateService.class);
-		Log.i("Service", "UpdateService starting");
-		startService(uintent);
+		//Intent uintent = new Intent(this, UpdateService.class);
+		//Log.i("Service", "UpdateService starting");
+		//startService(uintent);
 
 		// TODO: get some inspiration from here:
 		// http://www.vogella.com/tutorials/AndroidServices/article.html#service_backgroundprocessing
@@ -124,7 +144,6 @@ public class MainTabActivity extends TabActivity {
 		tabHost.addTab(spec);
 
 		tabHost.setCurrentTab(0);
-		
 	}
 	
 
@@ -135,7 +154,9 @@ public class MainTabActivity extends TabActivity {
 				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE)
 				.getString(StringConstants.SHARED_LAST_SYNC_DATE, "-");
 		lastSyncTV.setText(lastSync);
-
+		
+		Intent intent = new Intent(this, UpdateService.class);
+		bindService(intent, connection, Context.BIND_AUTO_CREATE);
 	}
 
 	@Override

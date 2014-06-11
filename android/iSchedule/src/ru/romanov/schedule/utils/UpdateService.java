@@ -74,21 +74,21 @@ public class UpdateService extends Service {
 	public void onCreate() {
 		super.onCreate();
 		Log.i("Service", "UpdateService created");
-		SharedPreferences mSharedPreferences = getSharedPreferences(
-				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
-		String token = mSharedPreferences.getString(StringConstants.TOKEN, null);
-		if (token == null) {
-			Log.i("Service", "No token - exit service");
-			return;
-		}
-		if (isNetworkAvailable()){
-			Log.i("Service", "Starting AsyncUpdater");
-			AsyncUpdater updater = new AsyncUpdater(this, token);
-			updater.execute();
-		}
-		else {
-			Log.i("Service", "Not starting AsyncUpdater");
-		}
+//		SharedPreferences mSharedPreferences = getSharedPreferences(
+//				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
+//		String token = mSharedPreferences.getString(StringConstants.TOKEN, null);
+//		if (token == null) {
+//			Log.i("Service", "No token - exit service");
+//			return;
+//		}
+//		if (isNetworkAvailable()){
+//			Log.i("Service", "Starting AsyncUpdater");
+//			AsyncUpdater updater = new AsyncUpdater(this, token);
+//			updater.execute();
+//		}
+//		else {
+//			Log.i("Service", "Not starting AsyncUpdater");
+//		}
 	}
 	
 	private class AsyncUpdater extends
@@ -232,7 +232,7 @@ public class UpdateService extends Service {
 	}
 	
 	public class MyBinder extends Binder {
-	    UpdateService getService() {
+	    public UpdateService getService() {
 	      return UpdateService.this;
 	    }
 	}
