@@ -1,30 +1,24 @@
 package ru.romanov.schedule.adapters;
 
+import java.util.ArrayList;
+
+import ru.romanov.schedule.R;
+import ru.romanov.schedule.utils.Subject;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.utils.Subject;
 
-import java.util.ArrayList;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nikita
- * Date: 17.05.13
- * Time: 21:13
- * To change this template use File | Settings | File Templates.
- */
 public class ScheduleUpdateListAdapter extends BaseAdapter {
-    private LayoutInflater mInflater;
+    private LayoutInflater inflater;
     private ArrayList<Subject> subjects;
 
 
     public ScheduleUpdateListAdapter(Context context, ArrayList<Subject> subjects) {
-        mInflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
         this.subjects = subjects;
     }
 
@@ -32,7 +26,7 @@ public class ScheduleUpdateListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.check_item, null);
+            convertView = inflater.inflate(R.layout.check_item, null);
         }
 
         Subject subj = subjects.get(position);

@@ -1,29 +1,23 @@
 package ru.romanov.schedule.src;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ExpandableListView;
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.adapters.SubjectAdapter;
-import ru.romanov.schedule.adapters.SubjectsListAdapter;
-import ru.romanov.schedule.utils.Subject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nikita
- * Date: 15.05.13
- * Time: 13:24
- * To change this template use File | Settings | File Templates.
- */
+import ru.romanov.schedule.R;
+import ru.romanov.schedule.adapters.SubjectAdapter;
+import ru.romanov.schedule.adapters.SubjectsListAdapter;
+import ru.romanov.schedule.utils.Subject;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+
+
 public class ScheduleListFragment extends Fragment{
     static final String PAGE_NUMBER = "page_number";
 

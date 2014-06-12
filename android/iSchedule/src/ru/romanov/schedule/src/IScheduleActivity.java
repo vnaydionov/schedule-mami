@@ -79,17 +79,17 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 		switch(v.getId()) {
 		case R.id.logInButton:
 			Log.i("Activity", "Login button clicked");
-			
+			this.startMainTabActivity();
 			if (this.loginEditText.getText().toString().isEmpty())
 				Toast.makeText(IScheduleActivity.this, R.string.login_empty, Toast.LENGTH_SHORT).show();
 			else if (this.passEditText.getText().toString().isEmpty())
 				Toast.makeText(IScheduleActivity.this, R.string.password_empty, Toast.LENGTH_SHORT).show();
 			else {
-				PostRequestAuthManager pram = new PostRequestAuthManager(
-					loginEditText.getText().toString(),
-					passEditText.getText().toString());
-				pram.execute();
-				this.startMainTabActivity();
+				//PostRequestAuthManager pram = new PostRequestAuthManager(
+				//	loginEditText.getText().toString(),
+				//	passEditText.getText().toString());
+				//pram.execute();
+				
 			}
 		}
 	}

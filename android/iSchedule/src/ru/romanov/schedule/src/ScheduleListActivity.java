@@ -7,13 +7,7 @@ import android.support.v4.view.ViewPager;
 import ru.romanov.schedule.R;
 import ru.romanov.schedule.adapters.ScheduleListPagerAdapter;
 
-/**
- * Created with IntelliJ IDEA.
- * User: nikita
- * Date: 15.05.13
- * Time: 13:57
- * To change this template use File | Settings | File Templates.
- */
+
 public class ScheduleListActivity extends FragmentActivity {
 
     ViewPager viewPager;

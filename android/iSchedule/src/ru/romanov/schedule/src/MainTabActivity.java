@@ -1,41 +1,45 @@
 package ru.romanov.schedule.src;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import ru.romanov.schedule.R;
+import ru.romanov.schedule.adapters.CollectionPagerAdapter;
 import ru.romanov.schedule.adapters.SubjectAdapter;
 import ru.romanov.schedule.utils.CalendarManager;
 import ru.romanov.schedule.utils.StringConstants;
 import ru.romanov.schedule.utils.Subject;
 import ru.romanov.schedule.utils.UpdateService;
-import android.app.AlarmManager;
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
-import android.app.TabActivity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.CalendarContract;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
 import android.widget.TextView;
 
-@SuppressWarnings("deprecation")
-public class MainTabActivity extends TabActivity {
-	private UpdateService serv;
+public class MainTabActivity extends FragmentActivity implements OnPageChangeListener, TabListener{
+	private UpdateService updateService;
+	private CollectionPagerAdapter collectionPagerAdapter;
 
 	TextView lastSyncTV;
+	ViewPager tabPager;
+	
     private static final Uri EVENT_URI = CalendarContract.Events.CONTENT_URI;
     private static final String ACCOUNT_NAME = "buyvich@gmail.com";
     
@@ -44,13 +48,13 @@ public class MainTabActivity extends TabActivity {
 			@Override
 			public void onServiceDisconnected(ComponentName name) {
 				Log.i("ServiceConnection", "Service UpdateManager disconnected");
-				serv = null;
+				updateService = null;
 			}
 			
 			@Override
 			public void onServiceConnected(ComponentName name, IBinder service) {
 				UpdateService.MyBinder binder = (UpdateService.MyBinder) service;
-				serv = binder.getService();
+				updateService = binder.getService();
 				Log.i("ServiceConnection", "Service UpdateManager connected");
 			}
 	};
@@ -60,61 +64,24 @@ public class MainTabActivity extends TabActivity {
 		Log.i("Activity", "MainTabActivity created");
 		setContentView(R.layout.main_tab_layout);
 		lastSyncTV = (TextView) findViewById(R.id.maintab_last_sync);
-		Resources res = getResources(); // Resource object to get Drawables
-		TabHost tabHost = getTabHost(); // The activity TabHost
-		TabHost.TabSpec spec; // Resusable TabSpec for each tab
-		Intent intent; // Reusable Intent for each tab
+		tabPager = (ViewPager) findViewById(R.id.tabPager);
 		
-//		final Intent scheduleIntent = new Intent(this, ScheduleListActivity.class);
-//		final Intent updateIntent = new Intent(this, UpdateListActivity.class);
-//		
-//		ActionBar actionBar = getActionBar();
-//		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-//		
-//		Tab scheduleTab = actionBar.newTab();
-//		scheduleTab.setText(R.string.schedule);
-//		scheduleTab.setTabListener(new TabListener() {
-//			
-//			@Override
-//			public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-//				
-//			}
-//			
-//			@Override
-//			public void onTabSelected(Tab tab, FragmentTransaction ft) {
-//				startActivity(scheduleIntent); 
-//			}
-//			
-//			@Override
-//			public void onTabReselected(Tab tab, FragmentTransaction ft) {	
-//			}
-//		});
-//		actionBar.addTab(scheduleTab);
-//		
-//		Tab updatesTab = actionBar.newTab();
-//		updatesTab.setText(R.string.updates);
-//		updatesTab.setTabListener(new TabListener() {
-//			
-//			@Override
-//			public void onTabUnselected(Tab tab, FragmentTransaction ft) {	
-//				
-//			}
-//			
-//			@Override
-//			public void onTabSelected(Tab tab, FragmentTransaction ft) {
-//				startActivity(updateIntent); 
-//			}
-//			
-//			@Override
-//			public void onTabReselected(Tab tab, FragmentTransaction ft) {	
-//			}
-//		});
-//		actionBar.addTab(updatesTab);
+		collectionPagerAdapter = new CollectionPagerAdapter(getSupportFragmentManager());
+		tabPager.setAdapter(collectionPagerAdapter);
+		tabPager.setOnPageChangeListener(this);
 		
+		ActionBar actionBar = getActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
-		//Intent uintent = new Intent(this, UpdateService.class);
-		//Log.i("Service", "UpdateService starting");
-		//startService(uintent);
+		Tab scheduleTab = actionBar.newTab();
+		scheduleTab.setText(R.string.schedule);
+		scheduleTab.setTabListener(this);
+		actionBar.addTab(scheduleTab);
+		
+		Tab updatesTab = actionBar.newTab();
+		updatesTab.setText(R.string.updates);
+		updatesTab.setTabListener(this);
+		actionBar.addTab(updatesTab);
 
 		// TODO: get some inspiration from here:
 		// http://www.vogella.com/tutorials/AndroidServices/article.html#service_backgroundprocessing
@@ -126,24 +93,6 @@ public class MainTabActivity extends TabActivity {
 //		AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 //		// Start every 30 seconds
 //		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 30*1000, pintent);
-		
-
-		
-		// Create an Intent to launch an Activity for the tab (to be reused)
-		intent = new Intent().setClass(this, ScheduleListActivity.class);
-
-		// Initialize a TabSpec for each tab and add it toresId the TabHost
-		spec = tabHost.newTabSpec("scedule").setIndicator(getString(R.string.schedule))
-				.setContent(intent);
-		tabHost.addTab(spec);
-
-		// Do the same for the other tabs
-		intent = new Intent().setClass(this, UpdateListActivity.class);
-		spec = tabHost.newTabSpec("updates").setIndicator(getString(R.string.updates))
-				.setContent(intent);
-		tabHost.addTab(spec);
-
-		tabHost.setCurrentTab(0);
 	}
 	
 
@@ -185,8 +134,6 @@ public class MainTabActivity extends TabActivity {
 		case R.id.menu_settings:
 			intent = new Intent(this, MenuSettingsActivity.class);
 			startActivity(intent);
-			break;
-		default:
 			break;
 		}
 
@@ -256,16 +203,50 @@ public class MainTabActivity extends TabActivity {
 		return builder.create();
 	}
 
+
+	@Override
+	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
+		tabPager.setCurrentItem(tab.getPosition());
+	}
+
+
+	@Override
+	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
+	}
+
+
+	@Override
+	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
+	}
+
+
+	@Override
+	public void onPageScrollStateChanged(int position) {
+	}
+
+
+	@Override
+	public void onPageScrolled(int arg0, float arg1, int arg2) {		
+	}
+
+
+	@Override
+	public void onPageSelected(int position) {
+		getActionBar().setSelectedNavigationItem(position);
+	}
+
 }
 
 
 class ExitDialogFragment extends android.support.v4.app.DialogFragment
 {
-	String question;
+	private String question;
+	private Activity context;
 	
-	public ExitDialogFragment(String question)
+	public ExitDialogFragment(String question, Activity context)
 	{
 		this.question = question;
+		this.context = context;
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -282,7 +263,23 @@ class ExitDialogFragment extends android.support.v4.app.DialogFragment
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				
+				SharedPreferences pref = context.getSharedPreferences(
+						StringConstants.SCHEDULE_SHARED_PREFERENCES,
+						context.MODE_PRIVATE);
+				SharedPreferences.Editor editor = pref.edit();
+				editor.remove(StringConstants.TOKEN);
+				editor.commit();
+				SharedPreferences schedule = context.getSharedPreferences(
+						StringConstants.MY_SCHEDULE,
+						context.MODE_PRIVATE);
+				editor = schedule.edit();
+				for (String key : pref.getAll().keySet()) {
+					editor.remove(key);
+				}
+				editor.commit();
+				Intent intent = new Intent(context, IScheduleActivity.class);
+				startActivity(intent);
+				context.finish();
 				
 			}
 		});
