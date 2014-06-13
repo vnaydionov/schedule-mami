@@ -8,7 +8,6 @@ import ru.romanov.schedule.adapters.SubjectAdapter;
 import ru.romanov.schedule.utils.Subject;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,18 +26,15 @@ public class UpdateListFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.i("UpdateListFragment", "UpdateListFragment onCreate()");
 		subjectAdapter = new SubjectAdapter(getActivity());
         subjects =  subjectAdapter.getNewSubjects();
         updateListAdapter = new ScheduleUpdateListAdapter(getActivity(), subjects);
-        Log.i("UpdateListFragment", updateListAdapter.toString());
 	}
 	
 	
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-    	Log.i("UpdateListFragment", "UpdateListFragment onCreateView()");
     	View view = inflater.inflate(R.layout.check_list_layout, null);
     	listView = (ListView) view.findViewById(R.id.checkList);
     	Button confirmButton = (Button) view.findViewById(R.id.check_confirm_button);

@@ -25,7 +25,6 @@ import ru.romanov.schedule.utils.XMLParser;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -130,12 +129,10 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
-//		case R.id.menu_settings:
 		case R.id.action_compose:
-			intent = new Intent(this, MenuSettingsActivity.class);
+			//intent = new Intent(this, MenuSettingsActivity.class);
+			intent = new Intent(this, AppPreferenceActivity.class);
 			startActivity(intent);
-			break;
-		default:
 			break;
 		}
 

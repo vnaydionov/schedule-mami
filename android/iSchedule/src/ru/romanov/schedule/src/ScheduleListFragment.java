@@ -19,7 +19,6 @@ import android.widget.ExpandableListView;
 
 
 public class ScheduleListFragment extends Fragment{
-    static final String PAGE_NUMBER = "page_number";
 
     int pageNumber;
     private ArrayList<ArrayList<Subject>> subjList;
@@ -29,7 +28,6 @@ public class ScheduleListFragment extends Fragment{
     static public ScheduleListFragment newInstance(int page) {
         ScheduleListFragment scheduleListFragment = new ScheduleListFragment();
         Bundle arguments = new Bundle();
-        arguments.putInt(PAGE_NUMBER, page);
         scheduleListFragment.setArguments(arguments);
         return scheduleListFragment;
     }
@@ -37,7 +35,6 @@ public class ScheduleListFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageNumber = getArguments().getInt(PAGE_NUMBER);
 
         ruDays.put("Mon", "Пн");
         ruDays.put("Tue", "Вт");
@@ -58,7 +55,6 @@ public class ScheduleListFragment extends Fragment{
 
         SubjectsListAdapter subjectListAdapter = new SubjectsListAdapter(this.getActivity(), group, subjList);
         scheduleList.setAdapter(subjectListAdapter);
-
 
         return view;
     }

@@ -1,6 +1,14 @@
 package ru.romanov.schedule.src;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import ru.romanov.schedule.R;
+import ru.romanov.schedule.utils.StringConstants;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -13,11 +21,11 @@ import android.os.Bundle;
 import android.provider.CalendarContract.Calendars;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.utils.StringConstants;
-
-import java.util.*;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 
 public class MenuSettingsActivity extends Activity implements OnClickListener {
@@ -36,7 +44,6 @@ public class MenuSettingsActivity extends Activity implements OnClickListener {
 	 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 		finish();
 	}
 	
@@ -46,7 +53,6 @@ public class MenuSettingsActivity extends Activity implements OnClickListener {
 
         int position = 0;
         int count = 0;
-
         mSharedPreferences = getSharedPreferences(
                 StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
 

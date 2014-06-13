@@ -32,17 +32,11 @@
             android:name=".src.MainTabActivity"
             android:theme="@android:style/Theme.Holo.Light" />
         <activity
-            android:name=".src.ScheduleListActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity
-            android:name=".src.UpdateListActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
-        <activity
             android:name=".src.UserInfoDialogActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity
-            android:name=".src.MenuSettingsActivity"
-            android:theme="@android:style/Theme.Dialog" />
+            android:name=".src.AppPreferenceActivity"
+            android:theme="@android:style/Theme.Holo.Light" />
 
         <service
             android:name=".utils.UpdateService"

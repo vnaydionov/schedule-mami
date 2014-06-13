@@ -36,6 +36,7 @@ import android.widget.TextView;
 public class MainTabActivity extends FragmentActivity implements OnPageChangeListener, TabListener{
 	private UpdateService updateService;
 	private CollectionPagerAdapter collectionPagerAdapter;
+	private ExitDialogFragment exitDialogFragment;
 
 	TextView lastSyncTV;
 	ViewPager tabPager;
@@ -123,16 +124,17 @@ public class MainTabActivity extends FragmentActivity implements OnPageChangeLis
             this.testCalendar();
 			break;
 		case R.id.menu_exit:
-			AlertDialog alert = getExitAlertDialog();
-			alert.show();
-			//new ExitDialogFragment(question).show(getSupportFragmentManager(), tag)
+			if (exitDialogFragment == null) 
+				exitDialogFragment = new ExitDialogFragment(getString(R.string.sure_to_exit), this);
+			exitDialogFragment.show(getSupportFragmentManager(), "");
 			break;
 		case R.id.menu_info:
 			intent = new Intent(this, UserInfoDialogActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.menu_settings:
-			intent = new Intent(this, MenuSettingsActivity.class);
+			//intent = new Intent(this, MenuSettingsActivity.class);
+			intent = new Intent(this, AppPreferenceActivity.class);
 			startActivity(intent);
 			break;
 		}
@@ -168,42 +170,7 @@ public class MainTabActivity extends FragmentActivity implements OnPageChangeLis
                 .build();
     }
 
-	private AlertDialog getExitAlertDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(getString(R.string.sure_to_exit))
-				.setCancelable(false)
-				.setPositiveButton(getString(R.string.dialog_yes),
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								SharedPreferences pref = getSharedPreferences(
-										StringConstants.SCHEDULE_SHARED_PREFERENCES,
-										MODE_PRIVATE);
-								SharedPreferences.Editor editor = pref.edit();
-								editor.remove(StringConstants.TOKEN);
-								editor.commit();
-								SharedPreferences schedule = getSharedPreferences(
-										StringConstants.MY_SCHEDULE,
-										MODE_PRIVATE);
-								editor = schedule.edit();
-								for (String key : pref.getAll().keySet()) {
-									editor.remove(key);
-								}
-								editor.commit();
-								Intent intent = new Intent(MainTabActivity.this, IScheduleActivity.class);
-								startActivity(intent);
-								MainTabActivity.this.finish();
-							}
-						})
-				.setNegativeButton(getString(R.string.dialog_no),
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
-		return builder.create();
-	}
-
-
+    
 	@Override
 	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
 		tabPager.setCurrentItem(tab.getPosition());
@@ -238,15 +205,15 @@ public class MainTabActivity extends FragmentActivity implements OnPageChangeLis
 }
 
 
-class ExitDialogFragment extends android.support.v4.app.DialogFragment
+class ExitDialogFragment extends android.support.v4.app.DialogFragment implements DialogInterface.OnClickListener
 {
 	private String question;
-	private Activity context;
+	private Activity activity;
 	
-	public ExitDialogFragment(String question, Activity context)
+	public ExitDialogFragment(String question, Activity activity)
 	{
 		this.question = question;
-		this.context = context;
+		this.activity = activity;
 	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -259,39 +226,38 @@ class ExitDialogFragment extends android.support.v4.app.DialogFragment
 		builder.setIcon(R.drawable.ic_launcher);
 		builder.setTitle(R.string.app_name);
 		builder.setMessage(this.question);
-		builder.setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				SharedPreferences pref = context.getSharedPreferences(
+		
+		builder.setPositiveButton(getString(R.string.dialog_yes), this);
+		builder.setNegativeButton(getString(R.string.dialog_no), this);
+		
+		return builder.create();
+	}
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		switch(which){
+			case Dialog.BUTTON_POSITIVE:
+				SharedPreferences pref = activity.getSharedPreferences(
 						StringConstants.SCHEDULE_SHARED_PREFERENCES,
-						context.MODE_PRIVATE);
+						Context.MODE_PRIVATE);
 				SharedPreferences.Editor editor = pref.edit();
 				editor.remove(StringConstants.TOKEN);
 				editor.commit();
-				SharedPreferences schedule = context.getSharedPreferences(
+				SharedPreferences schedule = activity.getSharedPreferences(
 						StringConstants.MY_SCHEDULE,
-						context.MODE_PRIVATE);
+						Context.MODE_PRIVATE);
 				editor = schedule.edit();
 				for (String key : pref.getAll().keySet()) {
 					editor.remove(key);
 				}
 				editor.commit();
-				Intent intent = new Intent(context, IScheduleActivity.class);
+				Intent intent = new Intent(activity, IScheduleActivity.class);
 				startActivity(intent);
-				context.finish();
-				
-			}
-		});
-		
-		builder.setNegativeButton(getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-			}
-		});
-		return super.onCreateDialog(savedInstanceState);
+				activity.finish();
+				break;
+			case Dialog.BUTTON_NEGATIVE:
+				dialog.cancel();
+				break;
+		}
 	}
 
 }
