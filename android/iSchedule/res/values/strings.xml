@@ -4,14 +4,13 @@
     <!-- Общие -->
     <string name="app_name">Расписание</string>
     <string name="loading">Загрузка</string>
-
+	
     <!-- Экран авторизации -->
     <string name="auth_title">Авторизация</string>
     <string name="login_empty">Укажите логин</string>
     <string name="password_empty">Введите пароль</string>
     <string name="login_error">Ошибка входа. Проверьте правильность логина и пароля и повторите попытку</string>
     <string name="auth_success">Авторизация пройдена</string>
-    
     
     <string name="last_update">Последняя синхронизация:</string>
     <string name="subject">Предмет:</string>

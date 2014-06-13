@@ -1,6 +1,7 @@
 package ru.romanov.schedule.src;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import ru.romanov.schedule.R;
 import ru.romanov.schedule.adapters.CollectionPagerAdapter;
@@ -13,17 +14,16 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ComponentName;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.provider.CalendarContract;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -34,35 +34,21 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainTabActivity extends FragmentActivity implements OnPageChangeListener, TabListener{
-	private UpdateService updateService;
 	private CollectionPagerAdapter collectionPagerAdapter;
 	private ExitDialogFragment exitDialogFragment;
+	
+	private PendingIntent updateServiceIntent;
+	private AlarmManager alarmManager;
 
 	TextView lastSyncTV;
 	ViewPager tabPager;
 	
     private static final Uri EVENT_URI = CalendarContract.Events.CONTENT_URI;
     private static final String ACCOUNT_NAME = "buyvich@gmail.com";
-    
-	private ServiceConnection connection = new ServiceConnection() {
-			
-			@Override
-			public void onServiceDisconnected(ComponentName name) {
-				Log.i("ServiceConnection", "Service UpdateManager disconnected");
-				updateService = null;
-			}
-			
-			@Override
-			public void onServiceConnected(ComponentName name, IBinder service) {
-				UpdateService.MyBinder binder = (UpdateService.MyBinder) service;
-				updateService = binder.getService();
-				Log.i("ServiceConnection", "Service UpdateManager connected");
-			}
-	};
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.i("Activity", "MainTabActivity created");
+		Log.i(getClass().getSimpleName(), "MainTabActivity created");
 		setContentView(R.layout.main_tab_layout);
 		lastSyncTV = (TextView) findViewById(R.id.maintab_last_sync);
 		tabPager = (ViewPager) findViewById(R.id.tabPager);
@@ -83,31 +69,36 @@ public class MainTabActivity extends FragmentActivity implements OnPageChangeLis
 		updatesTab.setText(R.string.updates);
 		updatesTab.setTabListener(this);
 		actionBar.addTab(updatesTab);
-
-		// TODO: get some inspiration from here:
-		// http://www.vogella.com/tutorials/AndroidServices/article.html#service_backgroundprocessing
-		// 8. Exercise: Define and consume local service
-
-		// This does not suffice
-//		PendingIntent pintent = PendingIntent.getService(this, 0, uintent, 0);
-//		Calendar cal = Calendar.getInstance();
-//		AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//		// Start every 30 seconds
-//		alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 30*1000, pintent);
 	}
-	
 
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
+		Log.i(getClass().getSimpleName(), "MainTabActivity onResume");
 		String lastSync = getSharedPreferences(
 				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE)
 				.getString(StringConstants.SHARED_LAST_SYNC_DATE, "-");
 		lastSyncTV.setText(lastSync);
 		
-		Intent intent = new Intent(this, UpdateService.class);
-		bindService(intent, connection, Context.BIND_AUTO_CREATE);
+		Calendar calendar = Calendar.getInstance();
+		Intent serviceIntent = new Intent(this, UpdateService.class);
+		updateServiceIntent = PendingIntent.getService(this, 0, serviceIntent, 0);
+		
+		alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 10*1000, updateServiceIntent); 
 	}
+	
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Log.i(getClass().getSimpleName(), "MainTabActivity onPause");		
+		Log.i(getClass().getSimpleName(), "Cancel UpdateService repeting");
+		//updateServiceIntent.cancel();
+		alarmManager.cancel(updateServiceIntent);
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,6 +106,7 @@ public class MainTabActivity extends FragmentActivity implements OnPageChangeLis
 		getMenuInflater().inflate(R.menu.main_activity_menu, menu);
 		return true;
 	}
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -133,7 +125,6 @@ public class MainTabActivity extends FragmentActivity implements OnPageChangeLis
 			startActivity(intent);
 			break;
 		case R.id.menu_settings:
-			//intent = new Intent(this, MenuSettingsActivity.class);
 			intent = new Intent(this, AppPreferenceActivity.class);
 			startActivity(intent);
 			break;

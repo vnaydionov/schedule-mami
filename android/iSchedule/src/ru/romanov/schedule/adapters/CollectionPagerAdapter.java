@@ -8,14 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 public class CollectionPagerAdapter extends FragmentPagerAdapter {
-	
+
 	private final int NUM_ITEMS= 2;
 	
-
 	public CollectionPagerAdapter(FragmentManager fm) {
 		super(fm);
 	}
-
 
 	@Override
 	public Fragment getItem(int arg0) {

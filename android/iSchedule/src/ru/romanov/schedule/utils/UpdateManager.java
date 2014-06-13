@@ -1,36 +1,20 @@
 package ru.romanov.schedule.utils;
 
-import java.util.Calendar;
-
 import ru.romanov.schedule.src.MainTabActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 public class UpdateManager extends BroadcastReceiver {
-	private static final long REPEAT_TIME = 1000 * 10;
-
+	// TODO Пересмотреть необходимость этого класса
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		//context.startService(new Intent(context, UpdateService.class));
-		Log.i("UpdateManager", "onReceive()");
-		AlarmManager service = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		Intent i = new Intent(context, UpdateSeviceReciever.class);
-		PendingIntent pending = PendingIntent.getBroadcast(context, 0, i, 
-		        PendingIntent.FLAG_CANCEL_CURRENT);
-		Calendar cal = Calendar.getInstance();
-		// start 5 seconds after boot completed
-		cal.add(Calendar.SECOND, 5);
-		
-		// fetch every 30 seconds
-	    // InexactRepeating allows Android to optimize the energy consumption
-	    service.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-	        cal.getTimeInMillis(), REPEAT_TIME, pending);
+		Log.i(getClass().getSimpleName(), "onReceive()");
+		Log.i(getClass().getSimpleName(), intent.getAction());
 	}
 	
 	public static void notificateAboutUpdate(Context context){
@@ -53,10 +37,3 @@ public class UpdateManager extends BroadcastReceiver {
 	}
 }
 
-class UpdateSeviceReciever extends BroadcastReceiver {
-	@Override
-	public void onReceive(Context context, Intent arg1) {
-		Intent service = new Intent(context, UpdateService.class);
-	    context.startService(service);
-	}
-}

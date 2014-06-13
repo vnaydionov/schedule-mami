@@ -13,17 +13,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserInfoDialogActivity extends Activity implements OnClickListener{
-
-	
 	private Map<String, String> user = new HashMap<String, String>();
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.info_dialog_layout);
+		setContentView(R.layout.info_layout);
 		
 		Context context = getApplicationContext();
-		UserAdapter ua = new UserAdapter(context);
-		user = ua.getUserAsMap(); 
+		UserAdapter userAdapter = new UserAdapter(context);
+		user = userAdapter.getUserAsMap(); 
 		
 	}
 	@Override
@@ -44,6 +42,5 @@ public class UserInfoDialogActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
 		finish();
-		
 	}
 }

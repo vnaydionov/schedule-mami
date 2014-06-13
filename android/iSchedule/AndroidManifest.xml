@@ -40,17 +40,16 @@
 
         <service
             android:name=".utils.UpdateService"
-            android:enabled="true" >
+            android:enabled="true"
+            android:label="UpdateService" >
         </service>
 
-        <receiver android:name="UpdateManager" >
+        <receiver android:name=".utils.UpdateManager" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        
-        <receiver 
-            android:name="UpdateSeviceReciever" >
+        <receiver android:name="UpdateSeviceReciever" >
         </receiver>
     </application>
 

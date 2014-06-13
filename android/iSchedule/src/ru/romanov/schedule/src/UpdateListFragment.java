@@ -35,7 +35,7 @@ public class UpdateListFragment extends Fragment implements OnClickListener {
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-    	View view = inflater.inflate(R.layout.check_list_layout, null);
+    	View view = inflater.inflate(R.layout.update_list_layout, null);
     	listView = (ListView) view.findViewById(R.id.checkList);
     	Button confirmButton = (Button) view.findViewById(R.id.check_confirm_button);
     	
@@ -49,7 +49,6 @@ public class UpdateListFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()){
 		case R.id.check_confirm_button:
-
 			break;
 		}
 	}

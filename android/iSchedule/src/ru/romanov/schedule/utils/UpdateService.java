@@ -41,54 +41,42 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class UpdateService extends Service {
 	public final IBinder binder = new MyBinder();
+	private SharedPreferences sharedPreferences;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
+		Log.i(getClass().getSimpleName(), "onBind()");
 		return this.binder;
 	}
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.i("Service", "onStartCommand");
-		SharedPreferences mSharedPreferences = getSharedPreferences(
-				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
-		String token = mSharedPreferences.getString(StringConstants.TOKEN, null);
+		Log.i(getClass().getSimpleName(), "onStartCommand()");
+		Log.i(getClass().getSimpleName(), "Service params: startId - " + startId + " flags - " + flags);
+		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
+		String token = sharedPreferences.getString(StringConstants.TOKEN, null);
 		if (token != null)
 			if (isNetworkAvailable()){
-				Log.i("Service", "Starting AsyncUpdater");
+				Log.i(getClass().getSimpleName(), "Starting AsyncUpdater");
 				AsyncUpdater updater = new AsyncUpdater(this, token);
 				updater.execute();
 			}
 			else 
-				Log.i("Service", "Not starting AsyncUpdater (network unavailable)");
+				Log.i(getClass().getSimpleName(), "Not starting AsyncUpdater (network unavailable)");
 		else
-			Log.i("Service", "No token - exit service");
-		return super.onStartCommand(intent, flags, startId);
+			Log.i(getClass().getSimpleName(), "No token - exit service");
+		return Service.START_STICKY;
 	}
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Log.i("Service", "UpdateService created");
-//		SharedPreferences mSharedPreferences = getSharedPreferences(
-//				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
-//		String token = mSharedPreferences.getString(StringConstants.TOKEN, null);
-//		if (token == null) {
-//			Log.i("Service", "No token - exit service");
-//			return;
-//		}
-//		if (isNetworkAvailable()){
-//			Log.i("Service", "Starting AsyncUpdater");
-//			AsyncUpdater updater = new AsyncUpdater(this, token);
-//			updater.execute();
-//		}
-//		else {
-//			Log.i("Service", "Not starting AsyncUpdater");
-//		}
+		Log.i(getClass().getSimpleName(), "onCreate()");
 	}
 	
 	private class AsyncUpdater extends
@@ -105,12 +93,14 @@ public class UpdateService extends Service {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			Log.i("AsyncUpdater", "AsyncUpdater onPreExecute");
+			Log.i(getClass().getSimpleName(), "onPreExecute");
 		}
 	
 		@Override
 		protected ArrayList<Subject> doInBackground(Void... params) {
-			Log.i("AsyncUpdater", "AsyncUpdater doInBackground");
+			Log.i(getClass().getSimpleName(), "doInBackground");
+			Thread.currentThread().setName(getClass().getName());
+			
 			HttpClient client = new DefaultHttpClient();
 			String reqString = null;
 			try {
@@ -139,34 +129,30 @@ public class UpdateService extends Service {
 					return parseSchedule(rez);
 				}
 			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
-	
 			}
 			return null;
-	
 		}
 		
 	
 		@Override
 		protected void onPostExecute(ArrayList<Subject> subjects) {
 			super.onPostExecute(subjects);
-			Log.i("AsyncUpdater", "AsyncUpdater onPostExecute");
+			Log.i(getClass().getSimpleName(), "onPostExecute");
+			
 			if (subjects != null) {
 				UpdateManager.notificateAboutUpdate(context);
 			}
-			SharedPreferences mSharedPreferences = getSharedPreferences(
-					StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
-			Editor editor = mSharedPreferences.edit();
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+			Editor editor = sharedPreferences.edit();
 			Calendar calend = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 			
-			SubjectAdapter adapter = new SubjectAdapter(this.context);
+			SubjectAdapter adapter = new SubjectAdapter(context);
 			adapter.syncDB(subjects);
 			
 			editor.putString(StringConstants.SHARED_LAST_SYNC_DATE, sdf.format(calend.getTime()));
@@ -204,24 +190,18 @@ public class UpdateService extends Service {
 				}
 			} 
 			catch (XPathExpressionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-				
 			} 
 			catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			catch (SAXException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 			catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 			finally {
