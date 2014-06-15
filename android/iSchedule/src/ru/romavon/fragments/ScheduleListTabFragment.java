@@ -1,4 +1,4 @@
-package ru.romanov.schedule.src;
+package ru.romavon.fragments;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,15 +18,15 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 
-public class ScheduleListFragment extends Fragment{
+public class ScheduleListTabFragment extends Fragment {
 
     int pageNumber;
     private ArrayList<ArrayList<Subject>> subjList;
     private ArrayList<ArrayList<String>> group;
     private HashMap<String, String> ruDays = new HashMap<String, String>();
 
-    static public ScheduleListFragment newInstance(int page) {
-        ScheduleListFragment scheduleListFragment = new ScheduleListFragment();
+    static public ScheduleListTabFragment newInstance(int page) {
+        ScheduleListTabFragment scheduleListFragment = new ScheduleListTabFragment();
         Bundle arguments = new Bundle();
         scheduleListFragment.setArguments(arguments);
         return scheduleListFragment;
@@ -48,7 +48,7 @@ public class ScheduleListFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle saveInstanceState) {
-        View view = inflater.inflate(R.layout.list_activity_fragment, null);
+        View view = inflater.inflate(R.layout.schedule_fragment_layout, null);
         ExpandableListView scheduleList = (ExpandableListView) view.findViewById(R.id.scheduleList);
 
         loadData();

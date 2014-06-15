@@ -1,5 +1,6 @@
-package ru.romanov.schedule.src;
+package ru.romanov.schedule.activities;
 
+import ru.romavon.fragments.AppPreferenceFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 

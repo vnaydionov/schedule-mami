@@ -1,4 +1,4 @@
-package ru.romanov.schedule.src;
+package ru.romanov.schedule.activities;
 
 import android.app.Activity;
 import android.content.Context;

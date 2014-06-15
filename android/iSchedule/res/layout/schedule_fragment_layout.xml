@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="#ffffff" >
+    android:background="#fff3f3f3"
+    android:orientation="vertical" >
 
     <ExpandableListView
         android:id="@+id/scheduleList"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="#fff3f3f3"
         android:cacheColorHint="#00000000"
         android:divider="#000000"
         android:dividerHeight="1dp"

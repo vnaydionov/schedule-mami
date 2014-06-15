@@ -1,4 +1,4 @@
-package ru.romanov.schedule.src;
+package ru.romavon.fragments;
 
 import java.util.LinkedList;
 import java.util.List;

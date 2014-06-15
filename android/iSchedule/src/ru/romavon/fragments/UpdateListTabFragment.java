@@ -1,4 +1,4 @@
-package ru.romanov.schedule.src;
+package ru.romavon.fragments;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-public class UpdateListFragment extends Fragment implements OnClickListener {
+public class UpdateListTabFragment extends Fragment implements OnClickListener {
 	ListView listView;
 	
 	SubjectAdapter subjectAdapter;
@@ -35,7 +35,7 @@ public class UpdateListFragment extends Fragment implements OnClickListener {
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-    	View view = inflater.inflate(R.layout.update_list_layout, null);
+    	View view = inflater.inflate(R.layout.update_fragment_layout, null);
     	listView = (ListView) view.findViewById(R.id.checkList);
     	Button confirmButton = (Button) view.findViewById(R.id.check_confirm_button);
     	

@@ -4,23 +4,23 @@
     <group>
         <item
             android:id="@+id/menu_check_updates"
-            android:icon="@android:drawable/ic_menu_revert"
+            android:icon="@drawable/ic_action_refresh"
             android:showAsAction="always"
             android:title="@string/check_updates"/>
     </group>
     <group>
         <item
-            android:icon="@android:drawable/ic_menu_more"
+            android:icon="@drawable/ic_action_overflow"
             android:showAsAction="always"
             android:title="More">
             <menu>
                 <item
                     android:id="@+id/menu_info"
-                    android:icon="@android:drawable/ic_menu_info_details"
+                    android:icon="@drawable/ic_action_about"
                     android:title="@string/my_info"/>
                 <item
                     android:id="@+id/menu_settings"
-                    android:icon="@android:drawable/ic_menu_preferences"
+                    android:icon="@drawable/ic_action_settings"
                     android:title="@string/settings"/>
                 <item
                     android:id="@+id/menu_exit"

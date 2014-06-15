@@ -1,4 +1,4 @@
-package ru.romanov.schedule.src;
+package ru.romanov.schedule.activities;
 
 
 import java.util.ArrayList;
