@@ -1,4 +1,4 @@
-package ru.romanov.schedule.src;
+package ru.romanov.schedule.activities;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,13 +25,13 @@ import ru.romanov.schedule.utils.XMLParser;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,8 +42,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class IScheduleActivity extends Activity implements OnClickListener {
-
-	private SharedPreferences mSharedPreferences;
+	private SharedPreferences sharedPreferences;
 	private EditText loginEditText;
 	private EditText passEditText;
 	private Button loginButton;
@@ -51,15 +50,15 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.i("Activity", "IScheduleActivity created");
-		mSharedPreferences = getSharedPreferences(
-				StringConstants.SCHEDULE_SHARED_PREFERENCES, MODE_PRIVATE);
+		Log.i(getClass().getSimpleName(), "IScheduleActivity created");
+		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		if (mSharedPreferences.getString(StringConstants.TOKEN, null) == null) {
-			setContentView(R.layout.main);
+		Log.i(getClass().getSimpleName(), "DefaultSharedPreference: " + sharedPreferences.getAll().toString());
+		
+		if (sharedPreferences.getString(StringConstants.TOKEN, null) == null) {
+			setContentView(R.layout.auth_layout);
 		} else {
 			Log.i("User", "Load user info from preferences");
-			setUpdateAlarm();
 			startMainTabActivity();
 		}
 	}
@@ -78,19 +77,19 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch(v.getId()) {
 		case R.id.logInButton:
-			Log.i("Activity", "Login button clicked");
-			
-			if (this.loginEditText.getText().toString().isEmpty())
-				Toast.makeText(IScheduleActivity.this, R.string.login_empty, Toast.LENGTH_SHORT).show();
-			else if (this.passEditText.getText().toString().isEmpty())
-				Toast.makeText(IScheduleActivity.this, R.string.password_empty, Toast.LENGTH_SHORT).show();
-			else {
-				PostRequestAuthManager pram = new PostRequestAuthManager(
+			Log.i(getClass().getSimpleName(), "Login button clicked");
+			this.startMainTabActivity();
+			//if (this.loginEditText.getText().toString().isEmpty())
+			//	Toast.makeText(IScheduleActivity.this, R.string.login_empty, Toast.LENGTH_SHORT).show();
+			//else if (this.passEditText.getText().toString().isEmpty())
+			//	Toast.makeText(IScheduleActivity.this, R.string.password_empty, Toast.LENGTH_SHORT).show();
+			//else {
+				PostRequestAuthManager authManager = new PostRequestAuthManager(
 					loginEditText.getText().toString(),
 					passEditText.getText().toString());
-				pram.execute();
-				this.startMainTabActivity();
-			}
+				authManager.execute();
+				
+			//}
 		}
 	}
 
@@ -98,18 +97,9 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		super.onResume();
 	}
-	
-	private void setUpdateAlarm() {
-		AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
-		Intent intent = new Intent(this, UpdateManager.class);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-		alarm.setRepeating(alarmType, 
-				10000, 1*60*1000, pendingIntent);
-	}
 
 	private void startMainTabActivity() {
-		Log.i("Activity", "Starting MainTabActivity");
+		Log.i(getClass().getSimpleName(), "Starting MainTabActivity");
 		Intent intent = new Intent(this, MainTabActivity.class);
 		startActivity(intent);
 		finish();
@@ -118,9 +108,6 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		//menu.add(Menu.NONE, R.id.menu_settings, Menu.NONE, "Настройки");
-		//MenuInflater inflater = getMenuInflater();
-		//inflater.inflate(R.menu.main_menu, menu);
 		getMenuInflater().inflate(R.menu.ischedule_activity_menu, menu);
 		return true;
 	}
@@ -130,12 +117,9 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
-//		case R.id.menu_settings:
 		case R.id.action_compose:
-			intent = new Intent(this, MenuSettingsActivity.class);
+			intent = new Intent(this, AppPreferenceActivity.class);
 			startActivity(intent);
-			break;
-		default:
 			break;
 		}
 
@@ -145,7 +129,7 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 	
 	private class PostRequestAuthManager extends
 			AsyncTask<Void, Void, HttpResponse> {
-
+		
 		private String login;
 		private String pass;
 		private String token;
@@ -159,12 +143,13 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			Log.i("AsyncTask", "AuthManager preExecute()");
+			Log.i(getClass().getSimpleName(), "onPreExecute()");
 			//dialog = ProgressDialog.show(IScheduleActivity.this, "", getString(R.string.loading), true);
 		}
 		@Override
 		protected HttpResponse doInBackground(Void... params) {
-			Log.i("AsyncTask", "AuthManager doInBackground()");
+			Log.i(getClass().getSimpleName(), "doInBackground()");
+			Thread.currentThread().setName(getClass().getName());
 			HttpClient client = new DefaultHttpClient();
 			String reqString = null;
 			try {
@@ -175,8 +160,10 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 			}
 			HttpResponse responce = null;
 			try {
-				String url = mSharedPreferences.getString("host", StringConstants.DEFAULT_HOST);
-				String port = mSharedPreferences.getString("port", StringConstants.DEFAULT_PORT);
+				String url = sharedPreferences.getString(getString(R.string.pref_address_host_id), 
+						StringConstants.DEFAULT_HOST);
+				String port = sharedPreferences.getString(getString(R.string.pref_address_port_id), 
+						StringConstants.DEFAULT_PORT);
 				String uri = url + ":" + port + "/main";
 				Log.i("", "Try to connect: " + uri);
 				HttpPost request = new HttpPost(uri);
@@ -199,7 +186,7 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 		@Override
 		protected void onPostExecute(HttpResponse result) {
 			super.onPostExecute(result);
-			Log.i("AsyncTask", "AuthManager onPostExecute()");
+			Log.i(getClass().getSimpleName(), "onPostExecute()");
 			if (result != null) {
 				HttpEntity ent = result.getEntity();
 				try {
@@ -224,7 +211,6 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 						UserAdapter us = new UserAdapter(context);
 						us.saveUser(resultMap.get(XMLParser.NAME), resultMap.get(XMLParser.LOGIN), 
 								resultMap.get(XMLParser.EMAIL), resultMap.get(XMLParser.PHONE));
-						setUpdateAlarm();
 						startMainTabActivity();
 						
 					} else {
@@ -245,7 +231,7 @@ public class IScheduleActivity extends Activity implements OnClickListener {
 		}
 		
 		private void saveSessionData() {
-			Editor editor = IScheduleActivity.this.mSharedPreferences.edit();
+			Editor editor = sharedPreferences.edit();
 			editor.putString(StringConstants.TOKEN, this.token);
 			editor.commit();
 		}

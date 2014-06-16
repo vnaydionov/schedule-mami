@@ -16,14 +16,14 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="11dp"
-        android:text="Авторизация"
+        android:text="@string/auth_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="normal"
         android:visibility="visible" />
 
     <EditText
-        style="@style/CustomEditText"
         android:id="@+id/loginEText"
+        style="@style/CustomEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -38,8 +38,8 @@
     </EditText>
 
     <EditText
-        style="@style/CustomEditText"
         android:id="@+id/passEText"
+        style="@style/CustomEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -52,15 +52,15 @@
         android:text="" />
 
     <Button
-        style="@style/PinkButton"
         android:id="@+id/logInButton"
+        style="@style/PinkButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/authText"
         android:layout_alignRight="@+id/authText"
         android:layout_below="@+id/passEText"
         android:layout_marginTop="32dp"
-        android:text="@string/enter" 
-        android:textSize="20sp"/>
+        android:text="@string/enter"
+        android:textSize="20sp" />
 
 </RelativeLayout>
