@@ -2,7 +2,7 @@ package ru.romanov.schedule.utils;
 
 public abstract class StringConstants {
 	
-	public static String DEFAULT_HOST = "http://192.168.0.26";
+	public static String DEFAULT_HOST = "http://172.16.17.130";
 	public static String DEFAULT_PORT = "19090";
 	public static String MY_URI = DEFAULT_HOST + ":" + DEFAULT_PORT + "/main";
 	
