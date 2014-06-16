@@ -56,7 +56,6 @@ public class Subject {
         this.activities = fields.get("activities");
 	}
 	
-	// Getters
 	public String getId() {
 		return id;
 	}
@@ -98,7 +97,6 @@ public class Subject {
         return activities;
     }
 	
-	// Setters
 	public void setId(String id) {
 		this.id = id;
 	}

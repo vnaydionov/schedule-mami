@@ -6,6 +6,12 @@ public abstract class StringConstants {
 	public static String DEFAULT_PORT = "19090";
 	public static String MY_URI = DEFAULT_HOST + ":" + DEFAULT_PORT + "/main";
 	
+	// Preference
+	public static String PREF_HOST = "host";
+	public static String PREF_PORT = "port";
+	public static String PREF_SYNC_CALENDAR = "syncCalendar";
+	public static String PREF_CALENDAR_NAME = "calendarName";
+	
 	public static String SCHEDULE_SHARED_PREFERENCES = "schedule_mami_shared";
 	public static String MY_SCHEDULE = "my_schedule";
 	public static String TOKEN = "token";
