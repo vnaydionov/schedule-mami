@@ -9,20 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 public class WeeklyListTabFragment extends Fragment {
-	private ProgressBar progressBar;
+    private ProgressBar progressBar;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.weekly_fragment_layout, null);
-		progressBar = (ProgressBar) view.findViewById(R.id.weeklyProgressBar);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.weekly_fragment_layout, null);
+        progressBar = (ProgressBar) view.findViewById(R.id.weeklyProgressBar);
 
-		return view;
-	}
+        return view;
+    }
 
 }

@@ -4,14 +4,14 @@
     <!-- Общие -->
     <string name="app_name">Расписание</string>
     <string name="loading">Загрузка</string>
-	
+
     <!-- Экран авторизации -->
     <string name="auth_title">Авторизация</string>
     <string name="login_empty">Укажите логин</string>
     <string name="password_empty">Введите пароль</string>
     <string name="login_error">Ошибка входа. Проверьте правильность логина и пароля и повторите попытку</string>
     <string name="auth_success">Авторизация пройдена</string>
-    
+
     <string name="last_update">Последняя синхронизация:</string>
     <string name="subject">Предмет:</string>
     <string name="date">Дата:</string>
@@ -67,19 +67,19 @@
     <!-- Названия и описание настроек -->
     <string name="pref_server_category_tittle">Настройки сервера</string>
     <string name="pref_sync_category_tittle">Настройки синхронизации</string>
-    
+
     <string name="pref_address_host_tittle">Хост</string>
     <string name="pref_address_host_summary"></string>
     <string name="pref_address_host_id">address_host</string>
-    
+
     <string name="pref_address_port_tittle">Порт</string>
     <string name="pref_address_port_summary"></string>
     <string name="pref_address_port_id">address_port</string>
-    
+
     <string name="pref_sync_tittle">Синхронизация</string>
     <string name="pref_sync_summary">С календарем Google</string>
     <string name="pref_sync_id">sync</string>
-    
+
     <string name="pref_account_list_tittle">Аккаунт</string>
     <string name="pref_account_list_summary"></string>
     <string name="pref_account_list_id">account_list</string>

@@ -30,26 +30,26 @@ import android.widget.Spinner;
 
 public class MenuSettingsActivity extends Activity implements OnClickListener {
 
-	private String host;
-	private String port;
+    private String host;
+    private String port;
     private boolean isChecked;
     private String calendarName;
     private static Map<String, Long> calendars = new HashMap<String, Long>();
-	SharedPreferences mSharedPreferences;
-	static EditText hostText;
-	static EditText portText;
+    SharedPreferences mSharedPreferences;
+    static EditText hostText;
+    static EditText portText;
     static CheckBox checkBox;
     static Spinner spinner;
-	Button saveButton;
-	 
-	@Override
-	public void onClick(View arg0) {
-		finish();
-	}
-	
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.settings_menu);
+    Button saveButton;
+
+    @Override
+    public void onClick(View arg0) {
+        finish();
+    }
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.settings_menu);
 
         int position = 0;
         int count = 0;
@@ -59,9 +59,8 @@ public class MenuSettingsActivity extends Activity implements OnClickListener {
 
         getCalendars();
 
-
-		this.host = mSharedPreferences.getString("host", StringConstants.DEFAULT_HOST);
-		this.port = mSharedPreferences.getString("port", StringConstants.DEFAULT_PORT);
+        this.host = mSharedPreferences.getString("host", StringConstants.DEFAULT_HOST);
+        this.port = mSharedPreferences.getString("port", StringConstants.DEFAULT_PORT);
         this.isChecked = mSharedPreferences.getBoolean("syncCalendar", false);
         this.calendarName = mSharedPreferences.getString("calendarName", null);
         if (calendarName == null)
@@ -82,36 +81,36 @@ public class MenuSettingsActivity extends Activity implements OnClickListener {
         spinner.setSelection(position);
         spinner.setAdapter(adapter);
 
-		hostText = (EditText) findViewById(R.id.hostText);
-		portText = (EditText) findViewById(R.id.portText);
+        hostText = (EditText) findViewById(R.id.hostText);
+        portText = (EditText) findViewById(R.id.portText);
         checkBox = (CheckBox) findViewById(R.id.syncCheckBox);
-		saveButton = (Button) findViewById(R.id.saveSettingsBtn);
-	}
-	
-	@Override
-	protected void onStart() {
-		hostText.setText(host);
-		portText.setText(port);
-        checkBox.setChecked(isChecked);
-		
-		saveButton.setOnClickListener(new OnClickListener() {
+        saveButton = (Button) findViewById(R.id.saveSettingsBtn);
+    }
 
-			@Override
-			public void onClick(View v) {
-				Editor editor = mSharedPreferences.edit();
-				editor.putString("host", hostText.getText().toString());
-				editor.putString("port", portText.getText().toString());
+    @Override
+    protected void onStart() {
+        hostText.setText(host);
+        portText.setText(port);
+        checkBox.setChecked(isChecked);
+
+        saveButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Editor editor = mSharedPreferences.edit();
+                editor.putString("host", hostText.getText().toString());
+                editor.putString("port", portText.getText().toString());
                 editor.putBoolean("syncCalendar", checkBox.isChecked());
                 editor.putString("calendarName", spinner.getSelectedItem().toString());
                 editor.putLong("calendarID", calendars.get(spinner.getSelectedItem().toString()));
 
-				editor.commit();
-				finish();
-			}
-		});
-		
-		super.onStart();
-	}
+                editor.commit();
+                finish();
+            }
+        });
+
+        super.onStart();
+    }
 
     private String getAccountName() {
         String name = null;
@@ -149,7 +148,6 @@ public class MenuSettingsActivity extends Activity implements OnClickListener {
                 + Calendars.OWNER_ACCOUNT + " = ?))";
         String[] selectionArgs = new String[] {accountName, "com.google",
                 accountName};
-
 
         cur = cr.query(uri, eventProjection, selection, selectionArgs, null);
         if (cur.moveToFirst()) {
