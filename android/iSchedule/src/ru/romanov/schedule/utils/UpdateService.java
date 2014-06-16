@@ -161,6 +161,7 @@ public class UpdateService extends Service {
         }
 
         private ArrayList<Subject> parseSchedule(String response) throws IOException {
+            Log.i("parseSchedule", response);
             InputStream is = null;
             ArrayList<Subject> subjects = new ArrayList<Subject>();
             try {
@@ -173,9 +174,9 @@ public class UpdateService extends Service {
                 for (int i = 0; i < subTree.getLength(); ++i) {
                     Node currentNode = subTree.item(i);
                     HashMap<String, String> subject = new HashMap<String, String>();
-                    NodeList childes = currentNode.getChildNodes();
-                    XMLParser.parseSubTree(childes, subject, false);
-                    Node period = XMLParser.findFirstByName(childes, "time").getFirstChild();
+                    NodeList children = currentNode.getChildNodes();
+                    XMLParser.parseSubTree(children, subject, false);
+                    Node period = XMLParser.findFirstByName(children, "time").getFirstChild();
                     XMLParser.parseSubTree(period.getChildNodes(), subject, false);
                     subject.put("dt_start", subject.get("start"));
                     subject.put("dt_end", subject.get("end"));
