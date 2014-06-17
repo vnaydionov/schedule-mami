@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.romanov.schedule"
+    package="ru.mami.schedule"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -19,7 +19,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name="ru.romanov.schedule.activities.IScheduleActivity"
+            android:name="ru.mami.schedule.activities.IScheduleActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Holo.Light" >
             <intent-filter>
@@ -29,13 +29,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ru.romanov.schedule.activities.MainTabActivity"
+            android:name="ru.mami.schedule.activities.MainTabActivity"
             android:theme="@android:style/Theme.Holo.Light" />
         <activity
-            android:name="ru.romanov.schedule.activities.UserInfoDialogActivity"
+            android:name="ru.mami.schedule.activities.UserInfoDialogActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity
-            android:name="ru.romanov.schedule.activities.AppPreferenceActivity"
+            android:name="ru.mami.schedule.activities.AppPreferenceActivity"
             android:theme="@android:style/Theme.Holo.Light" />
 
         <service
