@@ -1,8 +1,8 @@
-package ru.romanov.schedule.adapters;
+package ru.mami.schedule.adapters;
 
-import ru.romavon.fragments.ScheduleListTabFragment;
-import ru.romavon.fragments.UpdateListTabFragment;
-import ru.romavon.fragments.WeeklyListTabFragment;
+import ru.mami.schedule.fragments.ScheduleListTabFragment;
+import ru.mami.schedule.fragments.UpdateListTabFragment;
+import ru.mami.schedule.fragments.WeeklyListTabFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

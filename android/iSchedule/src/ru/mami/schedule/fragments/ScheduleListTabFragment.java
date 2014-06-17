@@ -1,4 +1,4 @@
-package ru.romavon.fragments;
+package ru.mami.schedule.fragments;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -6,10 +6,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.adapters.SubjectAdapter;
-import ru.romanov.schedule.adapters.SubjectsListAdapter;
-import ru.romanov.schedule.utils.Subject;
+import ru.mami.schedule.R;
+import ru.mami.schedule.adapters.SubjectAdapter;
+import ru.mami.schedule.adapters.SubjectsListAdapter;
+import ru.mami.schedule.utils.Subject;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

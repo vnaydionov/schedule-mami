@@ -1,4 +1,4 @@
-package ru.romanov.schedule.utils;
+package ru.mami.schedule.utils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -30,7 +30,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import ru.romanov.schedule.adapters.SubjectAdapter;
+import ru.mami.schedule.adapters.SubjectAdapter;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;

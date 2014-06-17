@@ -1,10 +1,10 @@
-package ru.romavon.fragments;
+package ru.mami.schedule.fragments;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.utils.StringConstants;
+import ru.mami.schedule.R;
+import ru.mami.schedule.utils.StringConstants;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.SharedPreferences;

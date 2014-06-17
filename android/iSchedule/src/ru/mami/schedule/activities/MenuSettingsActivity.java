@@ -1,4 +1,4 @@
-package ru.romanov.schedule.activities;
+package ru.mami.schedule.activities;
 
 
 import java.util.ArrayList;
@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.utils.StringConstants;
+import ru.mami.schedule.R;
+import ru.mami.schedule.utils.StringConstants;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;

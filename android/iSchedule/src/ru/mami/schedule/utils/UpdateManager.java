@@ -1,6 +1,6 @@
-package ru.romanov.schedule.utils;
+package ru.mami.schedule.utils;
 
-import ru.romanov.schedule.activities.MainTabActivity;
+import ru.mami.schedule.activities.MainTabActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;

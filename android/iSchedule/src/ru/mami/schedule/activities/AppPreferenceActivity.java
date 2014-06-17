@@ -1,6 +1,6 @@
-package ru.romanov.schedule.activities;
+package ru.mami.schedule.activities;
 
-import ru.romavon.fragments.AppPreferenceFragment;
+import ru.mami.schedule.fragments.AppPreferenceFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 

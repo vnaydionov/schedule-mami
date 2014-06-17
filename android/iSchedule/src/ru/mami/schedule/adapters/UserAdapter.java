@@ -1,9 +1,9 @@
-package ru.romanov.schedule.adapters;
+package ru.mami.schedule.adapters;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import ru.romanov.schedule.utils.StringConstants;
+import ru.mami.schedule.utils.StringConstants;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;

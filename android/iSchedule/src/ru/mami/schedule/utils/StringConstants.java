@@ -1,4 +1,4 @@
-package ru.romanov.schedule.utils;
+package ru.mami.schedule.utils;
 
 public abstract class StringConstants {
 

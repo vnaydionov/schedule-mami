@@ -1,4 +1,4 @@
-package ru.romanov.schedule.activities;
+package ru.mami.schedule.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.adapters.UserAdapter;
+import ru.mami.schedule.R;
+import ru.mami.schedule.adapters.UserAdapter;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,9 +1,9 @@
-package ru.romanov.schedule.adapters;
+package ru.mami.schedule.adapters;
 
 import java.util.ArrayList;
 
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.utils.Subject;
+import ru.mami.schedule.R;
+import ru.mami.schedule.utils.Subject;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

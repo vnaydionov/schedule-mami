@@ -1,4 +1,4 @@
-package ru.romanov.schedule.activities;
+package ru.mami.schedule.activities;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,12 +16,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.adapters.UserAdapter;
-import ru.romanov.schedule.utils.RequestStringsCreater;
-import ru.romanov.schedule.utils.StringConstants;
-import ru.romanov.schedule.utils.UpdateManager;
-import ru.romanov.schedule.utils.XMLParser;
+import ru.mami.schedule.R;
+import ru.mami.schedule.adapters.UserAdapter;
+import ru.mami.schedule.utils.RequestStringsCreater;
+import ru.mami.schedule.utils.StringConstants;
+import ru.mami.schedule.utils.UpdateManager;
+import ru.mami.schedule.utils.XMLParser;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;

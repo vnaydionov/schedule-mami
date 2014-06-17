@@ -1,11 +1,11 @@
-package ru.romavon.fragments;
+package ru.mami.schedule.fragments;
 
 import java.util.ArrayList;
 
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.adapters.ScheduleUpdateListAdapter;
-import ru.romanov.schedule.adapters.SubjectAdapter;
-import ru.romanov.schedule.utils.Subject;
+import ru.mami.schedule.R;
+import ru.mami.schedule.adapters.ScheduleUpdateListAdapter;
+import ru.mami.schedule.adapters.SubjectAdapter;
+import ru.mami.schedule.utils.Subject;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

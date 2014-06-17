@@ -1,15 +1,15 @@
-package ru.romanov.schedule.activities;
+package ru.mami.schedule.activities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import ru.romanov.schedule.R;
-import ru.romanov.schedule.adapters.TabCollectionPagerAdapter;
-import ru.romanov.schedule.adapters.SubjectAdapter;
-import ru.romanov.schedule.utils.CalendarManager;
-import ru.romanov.schedule.utils.StringConstants;
-import ru.romanov.schedule.utils.Subject;
-import ru.romanov.schedule.utils.UpdateService;
+import ru.mami.schedule.R;
+import ru.mami.schedule.adapters.TabCollectionPagerAdapter;
+import ru.mami.schedule.adapters.SubjectAdapter;
+import ru.mami.schedule.utils.CalendarManager;
+import ru.mami.schedule.utils.StringConstants;
+import ru.mami.schedule.utils.Subject;
+import ru.mami.schedule.utils.UpdateService;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;

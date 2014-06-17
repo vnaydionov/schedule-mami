@@ -1,6 +1,6 @@
-package ru.romavon.fragments;
+package ru.mami.schedule.fragments;
 
-import ru.romanov.schedule.R;
+import ru.mami.schedule.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

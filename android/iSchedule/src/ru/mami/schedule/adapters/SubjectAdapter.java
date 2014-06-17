@@ -1,4 +1,4 @@
-package ru.romanov.schedule.adapters;
+package ru.mami.schedule.adapters;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import ru.romanov.schedule.utils.Subject;
+import ru.mami.schedule.utils.Subject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
