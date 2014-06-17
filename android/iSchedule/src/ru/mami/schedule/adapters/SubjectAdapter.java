@@ -147,6 +147,7 @@ public class SubjectAdapter extends SQLiteOpenHelper {
 
     public ArrayList<Subject> getSubjectsByDate(String day) {
         Log.i("getSubjectsByDate", day);
+/*      
         HashMap<String, String> ruDays = new HashMap<String, String>();
         ruDays.put("Mon", "Понедельник");
         ruDays.put("Tue", "Вторник");
@@ -156,10 +157,10 @@ public class SubjectAdapter extends SQLiteOpenHelper {
         ruDays.put("Sat", "Суббота");
         ruDays.put("Sun", "Воскресенье");
         String dow = ruDays.get(day);
-
+*/
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, columns,
-                "dow = ?", new String[] {dow}, null, null, null);
+                "dow = ?", new String[] {day}, null, null, null);
         ArrayList<Subject> subjects = loadSubjects(cursor);
         db.close();
         return subjects;
