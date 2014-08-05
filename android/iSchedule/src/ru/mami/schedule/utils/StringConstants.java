@@ -2,9 +2,10 @@ package ru.mami.schedule.utils;
 
 public abstract class StringConstants {
 
-    public static String DEFAULT_HOST = "http://95.108.174.132";
-    public static String DEFAULT_PORT = "19090";
-    public static String MY_URI = DEFAULT_HOST + ":" + DEFAULT_PORT + "/main";
+    public static String DEFAULT_HOST = "http://ischedule.jumpingcrab.com";
+    public static String DEFAULT_PORT = "80";
+    public static String API_PATH = "/api/main";
+    public static String MY_URI = DEFAULT_HOST + ":" + DEFAULT_PORT + API_PATH;
 
     // Preference
     public static String PREF_HOST = "host";

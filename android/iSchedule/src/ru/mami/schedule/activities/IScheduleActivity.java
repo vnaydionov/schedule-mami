@@ -163,7 +163,7 @@ public class IScheduleActivity extends Activity implements OnClickListener {
                         StringConstants.DEFAULT_HOST);
                 String port = sharedPreferences.getString(getString(R.string.pref_address_port_id),
                         StringConstants.DEFAULT_PORT);
-                String uri = url + ":" + port + "/main";
+                String uri = url + ":" + port + StringConstants.API_PATH;
                 Log.i("", "Try to connect: " + uri);
                 HttpPost request = new HttpPost(uri);
 
