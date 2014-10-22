@@ -42,7 +42,7 @@ App::init_engine(Yb::ILogger *root_logger)
         Yb::SqlSource src(app_settings.get_db_conn_string());
         src["&id"] = "schedule_db";
         pool->add_source(src);
-        engine_.reset(new Yb::Engine(Yb::Engine::MANUAL, pool, "schedule_db"));
+        engine_.reset(new Yb::Engine(Yb::Engine::READ_WRITE, pool, "schedule_db"));
         engine_->set_echo(true);
         engine_->set_logger(yb_logger);
     }
